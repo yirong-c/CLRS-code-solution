@@ -12,6 +12,8 @@ Chapter 2 - 8
 
 ## Contact
 
+Blog: https://frc6.com
+
 Email: i@frc6.com
 
 QQ: 2093003592
