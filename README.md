@@ -10,6 +10,12 @@ ubuntu 5.8.0
 
 Chapter 2 - 8
 
+## Contact
+
+Email: i@frc6.com
+
+QQ: 2093003592
+
 ## Notes
 
 上个月开始刷算法导论，看的是英文版。
