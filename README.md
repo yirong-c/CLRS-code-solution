@@ -1,6 +1,6 @@
 # CLRS-code-solution
 
-Include code implemention and solution of "Introduction to Algorithms" (CLRS)
+Include code implemention and solution of "Introduction to Algorithms" (CLRS) 3rd edition
 
 ## Enviroment
 
