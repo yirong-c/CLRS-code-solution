@@ -20,9 +20,10 @@ int main_8_p_2();
 int main_8_p_3();
 int main_8_p_4();
 int main_8_p_5();
+int main_min_and_max();
 
 int main()
 {
-    main_8_p_5();
+    main_min_and_max();
     return 0;
 }
