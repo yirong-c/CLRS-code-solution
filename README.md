@@ -6,7 +6,7 @@ Include code implemention and solution of "Introduction to Algorithms" (CLRS) 3r
 
 ubuntu 5.8.0
 
-## Progress
+## Completed Part
 
 Chapter 2 - 8
 
