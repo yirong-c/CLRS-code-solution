@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "quicketsort.h"
 
 /*
 成(n)
@@ -154,11 +155,71 @@ int FindSecondSmallestElement(vector<int> A)
 	return second_smallest_value;
 }
 
+/*
+expexted running time: 成(n)
+worst-case time: 成(n^2)
+parameter: 
+	i: ith (start by 1) smallest element of the array A
+*/
+int RandomizedSelect(vector<int> A, int begin_index, int end_index,
+	int i)
+{
+	int middle_index, relative_middle_index;
+	if (begin_index == end_index)
+		return A[begin_index];
+	middle_index = QuicksortRandomizedPartition(A, begin_index, end_index);
+	relative_middle_index = middle_index - begin_index + 1;
+	if (i == relative_middle_index)
+		return A[middle_index];
+	else if (i < relative_middle_index)
+		return RandomizedSelect(A, begin_index, middle_index - 1, i);
+	else
+		return RandomizedSelect(A, middle_index + 1, end_index, 
+			i - relative_middle_index);
+}
+
+/*
+expexted running time: 成(n)
+worst-case time: 成(n^2)
+parameter:
+	i: ith (start by 1) smallest element of the array A
+9.2-3
+*/
+int RandomizedSelectIterativeVersion(vector<int> A,
+	int begin_index, int end_index,
+	int i)
+{
+	int middle_index, relative_middle_index;
+	while (1)
+	{
+		if (begin_index == end_index)
+			return A[begin_index];
+		middle_index = QuicksortRandomizedPartition(A, begin_index, end_index);
+		relative_middle_index = middle_index - begin_index + 1;
+		if (i == relative_middle_index)
+			return A[middle_index];
+		else if (i < relative_middle_index)
+			end_index = middle_index - 1;
+		else
+		{
+			begin_index = middle_index + 1;
+			i -= relative_middle_index;
+		}
+	}
+}
+
 int main_min_and_max()
 {
-	int min_val, max_val, second_smallest_value;
+	int min_val, max_val, second_smallest_value, size;
 	vector<int> container_input;
 	container_input = { 5,4,8,7,5,5,7,9,10,5,6,10,20 };
+	size = container_input.size();
+
+	second_smallest_value = RandomizedSelectIterativeVersion
+		(container_input, 0, size - 1, 2);
+
+	second_smallest_value = RandomizedSelect(container_input, 0, size - 1, 2);
+
 	second_smallest_value = FindSecondSmallestElement(container_input);
 	
 	SimultaneousMinMax(container_input, min_val, max_val);
