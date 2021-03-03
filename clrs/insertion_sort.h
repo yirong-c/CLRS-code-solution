@@ -2,7 +2,10 @@
 
 #include "stdafx.h"
 
-//O(n^2)
+/*
+O(n^2)
+T should have overload operator >
+*/
 template <typename T>
 void InsertionSort(vector<T>& A)
 {
@@ -21,7 +24,10 @@ void InsertionSort(vector<T>& A)
 	}
 }
 
-//O(n^2)
+/*
+O(n^2)
+T should have overload operator >
+*/
 template <typename T>
 void InsertionSortList(list<T>& A)
 {
@@ -43,5 +49,27 @@ void InsertionSortList(list<T>& A)
 			--iterator_i_low;
 		}
 		*iterator_i_high = key;
+	}
+}
+
+/*
+O(n^2)
+T should have overload operator >
+*/
+template <typename T>
+void InsertionSort(vector<T>& A, int begin_index, int end_index)
+{
+	size_t j, i;
+	T key;
+	for (j = begin_index + 1; j <= end_index; ++j)
+	{
+		key = A[j];
+		i = j - 1;
+		while (i >= 0 && A[i] > key)
+		{
+			A[i + 1] = A[i];
+			i--;
+		}
+		A[i + 1] = key;
 	}
 }

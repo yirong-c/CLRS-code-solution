@@ -2,6 +2,18 @@
 
 #include "stdafx.h"
 
-int QuicksortRandomizedPartition(vector<int>& A, int p, int r);
-void QuicksortPartitionSpecificPivotIndexReturnQAndT(vector<int>& A, int p, int r,
-	int pivot_index, int& q, int& t);
+/*
+7-p-6
+*/
+class FuzzySortData
+{
+public:
+	int a;//left endpoint
+	int b;//right endpoint
+	FuzzySortData() {}
+	FuzzySortData(int a, int b)
+	{
+		this->a = a;
+		this->b = b;
+	}
+};

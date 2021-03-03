@@ -1,21 +1,8 @@
 #include "stdafx.h"
 #include "insertion_sort.h"
-
-/*
-成(n)
-n = r - p + 1
-return: q
-*/
-int QuicksortPartition(vector<int>& A, int p, int r)
-{
-	int i, j;
-	i = p - 1;
-	for (j = p; j < r; ++j)
-		if (A[j] <= A[r])
-			SwapInt(A[++i], A[j]);
-	SwapInt(A[++i], A[r]);
-	return i;
-}
+#include "selection.h"
+#include "partition.h"
+#include "quicketsort.h"
 
 /*
 Best case: 成(nlgn)
@@ -26,24 +13,10 @@ void Quicksort(vector<int>& A, int p, int r)
 	int q;
 	if (p < r)
 	{
-		q = QuicksortPartition(A, p, r);
+		q = Partition(A, p, r);
 		Quicksort(A, p, q - 1);
 		Quicksort(A, q + 1, r);
 	}
-}
-
-/*
-成(n)
-n = r - p + 1
-return: q
-*/
-int QuicksortRandomizedPartition(vector<int>& A, int p, int r)
-{
-	int i;
-	srand((unsigned)time(NULL));
-	i = GetRangedRandomNum(p, r);
-	SwapInt(A[r], A[i]);
-	return QuicksortPartition(A, p, r);
 }
 
 /*
@@ -55,7 +28,7 @@ void RandomizedQuicksort(vector<int>& A, int p, int r)
 	int q;
 	if (p < r)
 	{
-		q = QuicksortRandomizedPartition(A, p, r);
+		q = RandomizedPartition(A, p, r);
 		RandomizedQuicksort(A, p, q - 1);
 		RandomizedQuicksort(A, q + 1, r);
 	}
@@ -70,7 +43,7 @@ void QuicksortOptByInsertionSortDoQuicksort(const int& k, vector<int>& A, int p,
 	int q;
 	if (p < r && r - p + 1 >= k)
 	{
-		q = QuicksortRandomizedPartition(A, p, r);
+		q = RandomizedPartition(A, p, r);
 		QuicksortOptByInsertionSortDoQuicksort(k, A, p, q - 1);
 		QuicksortOptByInsertionSortDoQuicksort(k, A, q + 1, r);
 	}
@@ -84,30 +57,6 @@ void QuicksortOptByInsertionSort(const int& k, vector<int>& A, int p, int r)
 {
 	QuicksortOptByInsertionSortDoQuicksort(k, A, p, r);
 	InsertionSort(A);
-}
-
-/*
-成(n)
-*/
-int HoarePartition(vector<int>& A, int p, int r)
-{
-	int x, i, j;
-	x = A[p];
-	i = p - 1;
-	j = r + 1;
-	while (1)
-	{
-		do
-			j--;
-		while (A[j] > x);
-		do
-			i++;
-		while (A[i] < x);
-		if (i < j)
-			SwapInt(A[i], A[j]);
-		else
-			return j;
-	}
 }
 
 /*
@@ -127,33 +76,6 @@ void HoareQuicksort(vector<int>& A, int p, int r)
 }
 
 /*
-成(r - p)
-7-p-2-b
-*/
-void QuicksortPartitionSpecificPivotIndexReturnQAndT(vector<int>& A, int p, int r,
-	int pivot_index, int& q, int& t)
-{
-	int j, x, j_val;
-	x = A[pivot_index];
-	t = q = p - 1;
-	for (j = p; j <= r; ++j)
-	{
-		j_val = A[j];
-		if (j_val == x)
-		{
-			SwapInt(A[++t], A[j]);
-		}
-		else if (j_val < x)
-		{
-			A[j] = A[++t];
-			A[t] = A[++q];
-			A[q] = j_val;
-		}
-	}
-	q++;
-}
-
-/*
 Best case: 成(nlgn)
 Worst case: 成(n^2)
 7-p-2-c
@@ -165,7 +87,7 @@ void RandomizedQuicksortReturnQAndT(vector<int>& A, int p, int r)
 	{
 		srand((unsigned)time(NULL));
 		pivot_index = GetRangedRandomNum(p, r);
-		QuicksortPartitionSpecificPivotIndexReturnQAndT(A, p, r, 
+		PartitionSpecificPivotIndex(A, p, r,
 			pivot_index, q, t);
 		RandomizedQuicksortReturnQAndT(A, p, q - 1);
 		RandomizedQuicksortReturnQAndT(A, t + 1, r);
@@ -177,7 +99,7 @@ void TailRecursiveQuicksort(vector<int>& A, int p, int r)
 	int q;
 	while (p < r)
 	{
-		q = QuicksortPartition(A, p, r);
+		q = Partition(A, p, r);
 		TailRecursiveQuicksort(A, p, q - 1);
 		p = q + 1;
 	}
@@ -194,7 +116,7 @@ void TailRecursiveQuicksortModify(vector<int>& A, int p, int r)
 	while (p < r)
 	{
 		half = (r - p + 1) / 2;
-		q = QuicksortPartition(A, p, r);
+		q = Partition(A, p, r);
 		if (q <= half)
 		{
 			TailRecursiveQuicksortModify(A, p, q - 1);
@@ -209,21 +131,6 @@ void TailRecursiveQuicksortModify(vector<int>& A, int p, int r)
 	}
 }
 
-/*
-7-p-6
-*/
-class FuzzySortData
-{
-public:
-	int a;//left endpoint
-	int b;//right endpoint
-	FuzzySortData(){}
-	FuzzySortData(int a, int b)
-	{
-		this->a = a;
-		this->b = b;
-	}
-};
 
 /*
 成(n)
@@ -248,32 +155,6 @@ void FindOverlapInterval(vector<FuzzySortData>& A,
 	}
 }
 
-/*
-成(n)
-7-p-6
-*/
-void FuzzySortPartition(vector<FuzzySortData>& A,
-	int p, int r, FuzzySortData& overlap_interval, int& q, int& t)
-{
-	FuzzySortData j_val;
-	int j;
-	t = q = p - 1;
-	for (j = p; j <= r; ++j)
-	{
-		j_val = A[j];
-		if (j_val.b < overlap_interval.a)
-		{
-			A[j] = A[++t];
-			A[t] = A[++q];
-			A[q] = j_val;
-		}
-		else if (!(j_val.a > overlap_interval.b))
-		{
-			SwapTemplate(A[++t], A[j]);
-		}
-	}
-	q++;
-}
 
 /*
 7-p-6
@@ -293,6 +174,22 @@ void FuzzySort(vector<FuzzySortData>& A, int p, int r)
 
 }
 
+/*
+成(nlgn)
+9.3-3
+*/
+void QuicksortMedianPivot(vector<int>& A, int begin_index, int end_index)
+{
+	int pivot_left_index, pivot_right_index;
+	if (begin_index < end_index)
+	{
+		LinearSelectMedianReturnPivotIndex(A, begin_index, end_index,
+			pivot_left_index, pivot_right_index);
+		RandomizedQuicksortReturnQAndT(A, begin_index, pivot_left_index - 1);
+		RandomizedQuicksortReturnQAndT(A, pivot_right_index + 1, end_index);
+	}
+}
+
 int main_quicksort()
 {
 	vector<FuzzySortData> A;
@@ -306,9 +203,15 @@ int main_quicksort()
 	};
 	FuzzySort(A, 0, 5);
 
-	vector<int> B;
+	vector<int> B, container_input;
 	B = { 2,4,8,7,1,4,3,5,6,4 };
 //	B = { 1,2,3,4,5,6,7,8,9,10 };
+	container_input = { 5,4,8,7,5,5,7,9,10,5,6,10,20,
+	5,4,8,7,5,5,7,9,10,5,6,10,20,
+	5,4,8,7,5,5,7,9,10,5,6,10,20 };
+
+	QuicksortMedianPivot(container_input, 0, container_input.size() - 1);
+
 	RandomizedQuicksort(B, 0, 9);
 	
 	return 0;
