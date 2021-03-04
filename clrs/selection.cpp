@@ -323,6 +323,15 @@ int LinearSelectReturnPivotIndex(vector<int>& A, int begin_index, int end_index,
 with the function of Partition
 worst-case time: жи(n)
 */
+int LinearSelectMedian(vector<int>& A, int begin_index, int end_index)
+{
+	LinearSelect(A, begin_index, end_index, (begin_index + end_index) / 2);
+}
+
+/*
+with the function of Partition
+worst-case time: жи(n)
+*/
 int LinearSelectMedianReturnPivotIndex(vector<int>& A, int begin_index, 
 	int end_index, int& pivot_left_index, int& pivot_right_index)
 {
@@ -408,19 +417,130 @@ void FindKthQuantilesEntrance(vector<int>& A, int k, vector<int>& quantiles)
 	FindKthQuantiles(A, 0, size - 1, element_num_of_group, quantiles);
 }
 
+/*
+Determine the k numbers in the array that are closest to the median of the array
+O(n)
+parameters:
+	A: will not be modified
+	close_num: do not resize before the function is called
+9.3-7
+*/
+void FindNumbersClosestToMedian(vector<int>& A, int k, vector<int>& close_num)
+{
+	size_t size;
+	int median, i, j, diff_abs_val_bound;
+	size = A.size();
+	vector<int> diff_abs_val(size), temp_vector;
+	close_num.reserve(k);
+	//find median of A
+	temp_vector = A;
+	median = LinearSelectMedian(temp_vector, 0, size - 1);
+	//find difference and absolute value
+	for (i = 0; i < size; ++i)
+	{
+		diff_abs_val[i] = abs(A[i] - median);
+	}
+	//find kth smallest number in diff_abs_val array
+	temp_vector = diff_abs_val;
+	diff_abs_val_bound = LinearSelect(temp_vector, 0, size - 1, k);
+	j = 0;
+	for (i = 0; i < size; ++i)
+	{
+		if (diff_abs_val[i] <= diff_abs_val_bound)
+		{
+			close_num.push_back(A[i]);
+			if (++j >= k)
+				break;
+		}
+	}
+}
+
+/*
+O(lgn)
+find the median of all 2n elements in arrays X and Y
+X and Y already in sorted and size are same
+asssume median is in X
+recursive part
+parameters:
+	median_val: out-para
+9.3-8
+*/
+bool Find2ArraysMedian(vector<int>& X, vector<int>& Y, 
+	int X_begin_index, int X_end_index, int X_base_index, 
+	int Y_begin_index, int Y_end_index, int& median_val)
+{
+	int X_mid_index, Y_n_minus_k_index;
+	if (X_begin_index > X_end_index)
+	{
+		return false;
+	}
+	else
+	{
+		X_mid_index = (X_begin_index + X_end_index) / 2;
+		median_val = X[X_mid_index];
+		Y_n_minus_k_index = Y_end_index - (X_mid_index - X_base_index + 1);
+		//boundary case
+		if (Y_n_minus_k_index < Y_begin_index)
+		{
+			//X[k] <= Y[Y_begin_index]
+			if (median_val <= Y[Y_n_minus_k_index + 1])
+				return true;
+			else
+				return false;
+		}
+		//normal case
+		else
+		{
+			//Y[n - k] <= X[k] <= Y[n - k + 1]
+			if (median_val >= Y[Y_n_minus_k_index] &&
+				median_val <= Y[Y_n_minus_k_index + 1])
+				return true;
+			//X[k] > Y[n - k + 1]
+			else if (median_val > Y[Y_n_minus_k_index + 1])
+				return Find2ArraysMedian(X, Y, X_begin_index, X_mid_index - 1,
+					X_base_index, Y_begin_index, Y_end_index, median_val);
+			//X[k] < Y[n - k]
+			else
+				return Find2ArraysMedian(X, Y, X_mid_index + 1, X_end_index,
+					X_base_index, Y_begin_index, Y_end_index, median_val);
+		}
+	}
+}
+
+/*
+O(lgn)
+fing the median of all 2n elements in arrays X and Y
+9.3-8
+*/
+int Find2ArraysMedianEntrance(vector<int>& X, vector<int>& Y)
+{
+	int size, median_val;
+	size = X.size();
+	if (!Find2ArraysMedian(X, Y, 0, size - 1, 0, 0, size - 1, median_val))
+		Find2ArraysMedian(Y, X, 0, size - 1, 0, 0, size - 1, median_val);
+	return median_val;
+}
+
 //-------------------------------------------------------------------
 
 int main_selection()
 {
 	int min_val, max_val, i_smallest_value, size, 
 		pivot_left_index, pivot_right_index;
-	vector<int> container_input, quantiles;
+	vector<int> container_input, container_output, X, Y;
 	container_input = { 5,4,8,7,5,5,7,9,10,5,6,10,20,
 		5,4,8,7,5,5,7,9,10,5,6,10,20,
 		5,4,8,7,5,5,7,9,10,5,6,10,20 };
 	size = container_input.size();
 
-	FindKthQuantilesEntrance(container_input, 5, quantiles);
+	Y = { 1,2,3,4,6 };
+	X = { 5,7,8,9,10 };
+
+	i_smallest_value = Find2ArraysMedianEntrance(X, Y);
+
+	FindNumbersClosestToMedian(container_input, 8, container_output);
+
+	FindKthQuantilesEntrance(container_input, 5, container_output);
 
 	i_smallest_value = SelectByBlackBox(container_input, 0, size - 1, 20);
 	
