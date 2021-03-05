@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="2_p_4.cpp" />
+    <ClCompile Include="merge_sort.cpp" />
+    <ClCompile Include="4_1_2.cpp" />
+    <ClCompile Include="4_1_3.cpp" />
+    <ClCompile Include="find_max_subarray_divide_and_conquer.cpp" />
+    <ClCompile Include="4_1_5.cpp" />
+    <ClCompile Include="square_matrix_multiply.cpp" />
+    <ClCompile Include="binary_search.cpp" />
+    <ClCompile Include="heapsort.cpp" />
+    <ClCompile Include="6_5_9.cpp" />
+    <ClCompile Include="6_p_2.cpp" />
+    <ClCompile Include="6_p_3.cpp" />
+    <ClCompile Include="matrix.h" />
+    <ClCompile Include="quicksort.cpp" />
+    <ClCompile Include="counting_sort.cpp" />
+    <ClCompile Include="bucket_sort.cpp" />
+    <ClCompile Include="insertion_sort.h" />
+    <ClCompile Include="common_vector_sort_parameters.h" />
+    <ClCompile Include="8_p_3.cpp" />
+    <ClCompile Include="8_3_1.cpp" />
+    <ClCompile Include="8_p_2.cpp" />
+    <ClCompile Include="8_p_4.cpp" />
+    <ClCompile Include="8_p_5.cpp" />
+    <ClCompile Include="selection.cpp" />
+    <ClCompile Include="partition.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="counting_sort.h" />
+    <ClInclude Include="bucket_sort.h" />
+    <ClInclude Include="merge_sort.h" />
+    <ClInclude Include="k_way_merge__6_5_9.h" />
+    <ClInclude Include="quicketsort.h" />
+    <ClInclude Include="selection.h" />
+    <ClInclude Include="partition.h" />
+  </ItemGroup>
+</Project>

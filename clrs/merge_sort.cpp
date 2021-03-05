@@ -117,6 +117,76 @@ void MergeSort(CommonSortParameters& para)
             para.container_2, i, para.data);
 }
 
+void Merge(vector<int>& A, int p, int q, int r)
+{
+    int n1, n2, i, j, k;
+    vector<int>::iterator it;
+    vector<int> L, R;
+    it = A.begin();
+    n1 = q - p + 1;
+    n2 = r - q;
+    L.reserve(n1 + 1);
+    R.reserve(n2 + 1);
+    L.assign(it + p, it + p + n1);
+    R.assign(it + p + n1, it + p + n1 + n2);
+    L.push_back(INT_MAX);
+    R.push_back(INT_MAX);
+    for (k = p, i = 0, j = 0; k < r + 1; ++k)
+    {
+        if (L[i] <= R[j])
+            A[k] = L[i++];
+        else
+            A[k] = R[j++];
+    }
+}
+
+void MergeSort(vector<int>& A, int p, int r)
+{
+    if (p < r)
+    {
+        int q;
+        q = (p + r) / 2;
+        MergeSort(A, p, q);
+        MergeSort(A, q + 1, r);
+        Merge(A, p, q, r);
+    }
+}
+
+void MergeReverse(vector<int>& A, int p, int q, int r)
+{
+    int n1, n2, i, j, k;
+    vector<int>::iterator it;
+    vector<int> L, R;
+    it = A.begin();
+    n1 = q - p + 1;
+    n2 = r - q;
+    L.reserve(n1 + 1);
+    R.reserve(n2 + 1);
+    L.assign(it + p, it + p + n1);
+    R.assign(it + p + n1, it + p + n1 + n2);
+    L.push_back(INT_MIN);
+    R.push_back(INT_MIN);
+    for (k = p, i = 0, j = 0; k < r + 1; ++k)
+    {
+        if (L[i] >= R[j])
+            A[k] = L[i++];
+        else
+            A[k] = R[j++];
+    }
+}
+
+void MergeSortReverse(vector<int>& A, int p, int r)
+{
+    if (p < r)
+    {
+        int q;
+        q = (p + r) / 2;
+        MergeSortReverse(A, p, q);
+        MergeSortReverse(A, q + 1, r);
+        MergeReverse(A, p, q, r);
+    }
+}
+
 int main_merge_sort()
 {
     int A[5] = { 2,3,8,6,1 };
