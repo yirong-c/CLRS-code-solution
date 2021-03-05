@@ -6,7 +6,7 @@
 //(a)----------------------------------------------------------
 
 /*
-O(nlgn)
+O(nlgn + i) = O(nlgn)
 list i largest numbers
 use merge sort
 parameters:
