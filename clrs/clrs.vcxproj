@@ -87,9 +87,10 @@
     <ClCompile Include="8_p_4.cpp" />
     <ClCompile Include="8_p_5.cpp" />
     <ClCompile Include="9_p_1.cpp" />
+    <ClCompile Include="9_p_2.cpp" />
     <ClCompile Include="binary_search.cpp" />
     <ClCompile Include="bucket_sort.cpp" />
-    <ClCompile Include="common_vector_sort_parameters.h" />
+    <ClCompile Include="common_sort_parameters.h" />
     <ClCompile Include="counting_sort.cpp" />
     <ClCompile Include="find_max_subarray_divide_and_conquer.cpp" />
     <ClCompile Include="heapsort.cpp" />
@@ -112,6 +113,7 @@
     <ClInclude Include="partition.h" />
     <ClInclude Include="quicketsort.h" />
     <ClInclude Include="selection.h" />
+    <ClInclude Include="element_class.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemDefinitionGroup />

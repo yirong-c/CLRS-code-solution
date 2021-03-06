@@ -19,7 +19,6 @@
     <ClCompile Include="counting_sort.cpp" />
     <ClCompile Include="bucket_sort.cpp" />
     <ClCompile Include="insertion_sort.h" />
-    <ClCompile Include="common_vector_sort_parameters.h" />
     <ClCompile Include="8_p_3.cpp" />
     <ClCompile Include="8_3_1.cpp" />
     <ClCompile Include="8_p_2.cpp" />
@@ -27,6 +26,9 @@
     <ClCompile Include="8_p_5.cpp" />
     <ClCompile Include="selection.cpp" />
     <ClCompile Include="partition.cpp" />
+    <ClCompile Include="9_p_1.cpp" />
+    <ClCompile Include="9_p_2.cpp" />
+    <ClCompile Include="common_sort_parameters.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -37,5 +39,7 @@
     <ClInclude Include="quicketsort.h" />
     <ClInclude Include="selection.h" />
     <ClInclude Include="partition.h" />
+    <ClInclude Include="heapsort.h" />
+    <ClInclude Include="element_class.h" />
   </ItemGroup>
 </Project>
