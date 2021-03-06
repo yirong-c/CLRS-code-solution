@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "common_vector_sort_parameters.h"
+#include "common_sort_parameters.h"
 
 /*
 O(n)

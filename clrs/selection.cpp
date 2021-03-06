@@ -279,8 +279,10 @@ parameter:
 	i_index: index (start by 0, base is begin_index) of
 			ith smallest element of the array A
 	i_index = i + begin_index - 1;
+	pivot_left_index: out-para
+	pivot_right_index: out-para
 */
-int LinearSelectReturnPivotIndex(vector<int>& A, int begin_index, int end_index, 
+int LinearSelect(vector<int>& A, int begin_index, int end_index, 
 	int i_index, int& pivot_left_index, int& pivot_right_index)
 {
 	int size, full_group_num, group_num, full_groups_size,
@@ -312,10 +314,10 @@ int LinearSelectReturnPivotIndex(vector<int>& A, int begin_index, int end_index,
 	if (i_index >= pivot_left_index && i_index <= pivot_right_index)
 		return median_of_medians;
 	else if (i_index < pivot_left_index)
-		return LinearSelectReturnPivotIndex(A, begin_index, pivot_left_index - 1, 
+		return LinearSelect(A, begin_index, pivot_left_index - 1, 
 			i_index, pivot_left_index, pivot_right_index);
 	else
-		return LinearSelectReturnPivotIndex(A, pivot_right_index + 1, end_index, 
+		return LinearSelect(A, pivot_right_index + 1, end_index, 
 			i_index, pivot_left_index, pivot_right_index);
 }
 
@@ -331,11 +333,14 @@ int LinearSelectMedian(vector<int>& A, int begin_index, int end_index)
 /*
 with the function of Partition
 worst-case time: жи(n)
+parameters:
+	pivot_left_index: out-para
+	pivot_right_index: out-para
 */
-int LinearSelectMedianReturnPivotIndex(vector<int>& A, int begin_index, 
+int LinearSelectMedian(vector<int>& A, int begin_index, 
 	int end_index, int& pivot_left_index, int& pivot_right_index)
 {
-	LinearSelectReturnPivotIndex(A, begin_index, end_index,
+	LinearSelect(A, begin_index, end_index,
 		(begin_index + end_index) / 2, pivot_left_index, pivot_right_index);
 }
 
@@ -358,7 +363,7 @@ int SelectByBlackBox(vector<int>& A, int begin_index, int end_index,
 	int i_index)
 {
 	int pivot_left_index, pivot_right_index, median;
-	median = LinearSelectMedianReturnPivotIndex(A, begin_index, end_index,
+	median = LinearSelectMedian(A, begin_index, end_index,
 		pivot_left_index, pivot_right_index);//black box + partition function
 	if (i_index >= pivot_left_index && i_index <= pivot_right_index)
 		return median;
@@ -521,6 +526,77 @@ int Find2ArraysMedianEntrance(vector<int>& X, vector<int>& Y)
 	return median_val;
 }
 
+/*
+with the function of Partition
+worst-case time: жи(n)
+return value is i_index
+A[i_index] is the selected value
+parameter:
+	i_index: index (start by 0, base is begin_index) of
+			ith smallest element of the array A
+	i_index = i + begin_index - 1;
+	pivot_left_index: out-para
+	pivot_right_index: out-para
+*/
+int LinearSelect(vector< ElementWithKey* >& A, int begin_index, 
+	int end_index, int i_index, int& pivot_left_index, int& pivot_right_index)
+{
+	int size, full_group_num, group_num, full_groups_size,
+		last_nonfull_group_size, j;
+	ElementWithKey* median_of_medians;
+	vector< ElementWithKey* > medians;
+	size = end_index - begin_index + 1;
+	full_group_num = size / 5;
+	full_groups_size = full_group_num * 5;
+	last_nonfull_group_size = size - full_groups_size;
+	group_num = full_group_num + (last_nonfull_group_size != 0);
+	//find medians and insertion sort
+	medians.reserve(group_num);
+	for (j = begin_index; j < begin_index + full_groups_size; j += 5)
+	{
+		InsertionSort(A, j, j + 4);
+		medians.push_back(A[j + 2]);
+	}
+	if (last_nonfull_group_size)
+		medians.push_back(A[j + (last_nonfull_group_size - 1) / 2]);
+	//find median of medians
+	if (group_num == 1)
+		median_of_medians = medians[0];
+	else
+		median_of_medians = medians[LinearSelect(medians,
+			0, group_num - 1, (group_num - 1) / 2, 
+			pivot_left_index, pivot_right_index)];
+	//partition
+	PartitionSpecificPivotValue(A, begin_index, end_index, median_of_medians->key_,
+		pivot_left_index, pivot_right_index);
+	if (i_index >= pivot_left_index && i_index <= pivot_right_index)
+		return i_index;
+	else if (i_index < pivot_left_index)
+		return LinearSelect(A, begin_index, pivot_left_index - 1,
+			i_index, pivot_left_index, pivot_right_index);
+	else
+		return LinearSelect(A, pivot_right_index + 1, end_index,
+			i_index, pivot_left_index, pivot_right_index);
+}
+
+/*
+with the function of Partition
+worst-case time: жи(n)
+return value is i_index
+A[i_index] is the selected value
+parameter:
+	i_index: index (start by 0, base is begin_index) of
+			ith smallest element of the array A
+	i_index = i + begin_index - 1;
+*/
+int LinearSelect(vector< ElementWithKey* >& A, int begin_index,
+	int end_index, int i_index)
+{
+	int pivot_left_index, pivot_right_index;
+	return LinearSelect(A, begin_index, end_index, i_index,
+		pivot_left_index, pivot_right_index);
+}
+
 //-------------------------------------------------------------------
 
 int main_selection()
@@ -544,7 +620,7 @@ int main_selection()
 
 	i_smallest_value = SelectByBlackBox(container_input, 0, size - 1, 20);
 	
-	i_smallest_value = LinearSelectReturnPivotIndex
+	i_smallest_value = LinearSelect
 		(container_input, 0, size - 1, (size - 1) / 2, 
 		pivot_left_index, pivot_right_index);
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "stdafx.h"
+#include "element_class.h"
 
 /*
 O(n^2)
@@ -9,7 +10,8 @@ T should have overload operator >
 template <typename T>
 void InsertionSort(vector<T>& A)
 {
-	size_t j, size, i;
+	size_t size;
+	int j, i;
 	T key;
 	for (j = 1, size = A.size(); j < size; ++j)
 	{
@@ -59,7 +61,7 @@ T should have overload operator >
 template <typename T>
 void InsertionSort(vector<T>& A, int begin_index, int end_index)
 {
-	size_t j, i;
+	int j, i;
 	T key;
 	for (j = begin_index + 1; j <= end_index; ++j)
 	{
@@ -71,5 +73,25 @@ void InsertionSort(vector<T>& A, int begin_index, int end_index)
 			i--;
 		}
 		A[i + 1] = key;
+	}
+}
+
+/*
+O(n^2)
+*/
+void InsertionSort(vector< ElementWithKey* >& A, int begin_index, int end_index)
+{
+	int j, i;
+	ElementWithKey* temp;
+	for (j = begin_index + 1; j <= end_index; ++j)
+	{
+		temp = A[j];
+		i = j - 1;
+		while (i >= 0 && A[i]->key_ > temp->key_)
+		{
+			A[i + 1] = A[i];
+			i--;
+		}
+		A[i + 1] = temp;
 	}
 }

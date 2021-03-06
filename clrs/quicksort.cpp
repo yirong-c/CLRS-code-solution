@@ -183,7 +183,7 @@ void QuicksortMedianPivot(vector<int>& A, int begin_index, int end_index)
 	int pivot_left_index, pivot_right_index;
 	if (begin_index < end_index)
 	{
-		LinearSelectMedianReturnPivotIndex(A, begin_index, end_index,
+		LinearSelectMedian(A, begin_index, end_index,
 			pivot_left_index, pivot_right_index);
 		RandomizedQuicksortReturnQAndT(A, begin_index, pivot_left_index - 1);
 		RandomizedQuicksortReturnQAndT(A, pivot_right_index + 1, end_index);

@@ -187,6 +187,42 @@ void MergeSortReverse(vector<int>& A, int p, int r)
     }
 }
 
+void Merge(vector< ElementWithKey* >& A, int p, int q, int r)
+{
+    int n1, n2, i, j, k;
+    vector< ElementWithKey* >::iterator it;
+    vector< ElementWithKey* > L, R;
+    ElementWithKey max_key(INT_MAX);
+    it = A.begin();
+    n1 = q - p + 1;
+    n2 = r - q;
+    L.reserve(n1 + 1);
+    R.reserve(n2 + 1);
+    L.assign(it + p, it + p + n1);
+    R.assign(it + p + n1, it + p + n1 + n2);
+    L.push_back(&max_key);
+    R.push_back(&max_key);
+    for (k = p, i = 0, j = 0; k < r + 1; ++k)
+    {
+        if (L[i]->key_ <= R[j]->key_)
+            A[k] = L[i++];
+        else
+            A[k] = R[j++];
+    }
+}
+
+void MergeSort(vector< ElementWithKey* >& A, int p, int r)
+{
+    if (p < r)
+    {
+        int q;
+        q = (p + r) / 2;
+        MergeSort(A, p, q);
+        MergeSort(A, q + 1, r);
+        Merge(A, p, q, r);
+    }
+}
+
 int main_merge_sort()
 {
     int A[5] = { 2,3,8,6,1 };
