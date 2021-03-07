@@ -23,9 +23,10 @@ int main_8_p_5();
 int main_selection();
 int main_9_p_1();
 int main_9_p_2();
+int main_9_p_3();
 
 int main()
 {
-    main_9_p_2();
+    main_9_p_3();
     return 0;
 }

@@ -29,6 +29,7 @@
     <ClCompile Include="9_p_1.cpp" />
     <ClCompile Include="9_p_2.cpp" />
     <ClCompile Include="common_sort_parameters.h" />
+    <ClCompile Include="9_p_3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />

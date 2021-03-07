@@ -88,6 +88,7 @@
     <ClCompile Include="8_p_5.cpp" />
     <ClCompile Include="9_p_1.cpp" />
     <ClCompile Include="9_p_2.cpp" />
+    <ClCompile Include="9_p_3.cpp" />
     <ClCompile Include="binary_search.cpp" />
     <ClCompile Include="bucket_sort.cpp" />
     <ClCompile Include="common_sort_parameters.h" />
