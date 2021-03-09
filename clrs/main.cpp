@@ -24,9 +24,10 @@ int main_selection();
 int main_9_p_1();
 int main_9_p_2();
 int main_9_p_3();
+int main_stack_queue();
 
 int main()
 {
-    main_9_p_3();
+    main_stack_queue();
     return 0;
 }

@@ -30,6 +30,7 @@
     <ClCompile Include="9_p_2.cpp" />
     <ClCompile Include="common_sort_parameters.h" />
     <ClCompile Include="9_p_3.cpp" />
+    <ClCompile Include="stack_queue.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
