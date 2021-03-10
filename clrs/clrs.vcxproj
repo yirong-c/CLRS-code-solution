@@ -96,6 +96,7 @@
     <ClCompile Include="find_max_subarray_divide_and_conquer.cpp" />
     <ClCompile Include="heapsort.cpp" />
     <ClCompile Include="insertion_sort.h" />
+    <ClCompile Include="linked_list.h" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="2_p_4.cpp" />
     <ClCompile Include="matrix.h" />

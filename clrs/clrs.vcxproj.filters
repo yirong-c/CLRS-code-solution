@@ -31,6 +31,7 @@
     <ClCompile Include="common_sort_parameters.h" />
     <ClCompile Include="9_p_3.cpp" />
     <ClCompile Include="stack_queue.h" />
+    <ClCompile Include="linked_list.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />

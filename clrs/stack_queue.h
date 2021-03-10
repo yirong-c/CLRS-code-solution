@@ -1,3 +1,5 @@
+#pragma once
+
 #include "stdafx.h"
 
 //suggest let T be basic data type
