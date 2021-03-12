@@ -8,26 +8,11 @@ public:
 	int array_size;
 	int array_i_size;
 	int array_j_size;
-	Array2D(int i, int j)
-	{
-		array_size = i * j;
-		array_i_size = i;
-		array_j_size = j;
-		pointer = new int[array_size]();
-		//printf("pointer:%p\n", pointer);
-	}
-	Array2D(int i, int j, int* p)
-	{
-		array_size = i * j;
-		array_i_size = i;
-		array_j_size = j;
-		pointer = new int[array_size];
-		memcpy(pointer, p, array_size * sizeof(int));
-	}
-	~Array2D()
-	{
-		delete[] pointer;
-	}
+
+	Array2D(int i, int j);
+	Array2D(int i, int j, int* p);
+	~Array2D();
+
 	inline int GetArrayMember(int i, int j)
 	{
 		return *(pointer + i * array_i_size + j);
@@ -64,85 +49,23 @@ public:
 		int col_base_index;
 		int row_length;
 		int col_length;
-		void Devide(int i, int j)
-		{
-			int length_half;
-			if (i == 1)
-			{
-				row_length /= 2;
-			}
-			else if (i == 2)
-			{
-				length_half = row_length / 2;
-				row_base_index += length_half;
-				row_length -= length_half;
-			}
-			if (j == 1)
-			{
-				col_length /= 2;
-			}
-			else if (j == 2)
-			{
-				length_half = col_length / 2;
-				col_base_index += length_half;
-				col_length -= length_half;
-			}
-		}
+
+		void Devide(int i, int j);
 	};
+
 	int actual_row_length;
 	int actual_col_length;
 	MatrixIndexSize matrix_index_size;
+
 	void SetMatrixIndexSize(int row_base_index, int col_base_index,
-		int row_length, int col_length)
-	{
-		matrix_index_size.row_base_index = row_base_index;
-		matrix_index_size.col_base_index = col_base_index;
-		matrix_index_size.row_length = row_length;
-		matrix_index_size.col_length = col_length;
-	}
+		int row_length, int col_length);
 	void SetMatrixIndexSizeExtend(int row_base_index, int col_base_index,
-		int row_length, int col_length)
-	{
-		matrix_index_size.row_base_index = row_base_index;
-		matrix_index_size.col_base_index = col_base_index;
-		double exp_double;
-		exp_double = log(row_length > col_length ?
-			row_length : col_length) / log(2);
-		exp_double = exp_double > (int)exp_double ?
-			(int)exp_double + 1 : (int)exp_double;
-		matrix_index_size.row_length = pow(2.0, exp_double);
-		matrix_index_size.col_length = matrix_index_size.row_length;
-	}
-	Matrix(int i, int j) : Array2D(i, j)
-	{
-		actual_row_length = i;
-		actual_col_length = j;
-		SetMatrixIndexSizeExtend(0, 0, i, j);
-	}
-	Matrix(int i, int j, int do_not_extend) : Array2D(i, j)
-	{
-		actual_row_length = i;
-		actual_col_length = j;
-		if (do_not_extend)
-			SetMatrixIndexSize(0, 0, i, j);
-		else
-			SetMatrixIndexSizeExtend(0, 0, i, j);
-	}
-	Matrix(int i, int j, int* p) : Array2D(i, j, p)
-	{
-		actual_row_length = i;
-		actual_col_length = j;
-		SetMatrixIndexSizeExtend(0, 0, i, j);
-	}
-	Matrix(int i, int j, int* p, int do_not_extend) : Array2D(i, j, p)
-	{
-		actual_row_length = i;
-		actual_col_length = j;
-		if (do_not_extend)
-			SetMatrixIndexSize(0, 0, i, j);
-		else
-			SetMatrixIndexSizeExtend(0, 0, i, j);
-	}
+		int row_length, int col_length);
+	Matrix(int i, int j);
+	Matrix(int i, int j, int do_not_extend);
+	Matrix(int i, int j, int* p);
+	Matrix(int i, int j, int* p, int do_not_extend);
+
 	inline int& GetMatrixMemberRef(int i, int j)
 	{
 		return GetArrayMemberRef(matrix_index_size.row_base_index + i,
@@ -158,87 +81,17 @@ public:
 		SetArrayMemberCheckOverflow(matrix_index_size.row_base_index + i,
 			matrix_index_size.col_base_index + j, value);
 	}
-	void SetAddMatrixMember(int i, int j, int value)
-	{
-		int array_i, array_j;
-		array_i = matrix_index_size.row_base_index + i;
-		array_j = matrix_index_size.col_base_index + j;
-		SetArrayMemberCheckOverflow(array_i, array_j, GetArrayMemberCheckOverflow(array_i, array_j) + value);
-	}
-	void SetSubMatrixMember(int i, int j, int value)
-	{
-		int array_i, array_j;
-		array_i = matrix_index_size.row_base_index + i;
-		array_j = matrix_index_size.col_base_index + j;
-		SetArrayMemberCheckOverflow(array_i, array_j, GetArrayMemberCheckOverflow(array_i, array_j) - value);
-	}
-	void GetMatrixIndexSizeCopy(MatrixIndexSize& copy)
-	{
-		memcpy(&copy, &matrix_index_size, sizeof(MatrixIndexSize));
-	}
-	void SetMatrixIndexSizeCopy(const MatrixIndexSize& copy)
-	{
-		memcpy(&matrix_index_size, &copy, sizeof(MatrixIndexSize));
-	}
-	void SetMatrixIndexSizeCopyDevideObject(const MatrixIndexSize& copy, int i, int j)
-	{
-		memcpy(&matrix_index_size, &copy, sizeof(MatrixIndexSize));
-		matrix_index_size.Devide(i, j);
-	}
-	Matrix* GetNewMatrixDevideObjectCopy(int i, int j)
-	{
-		MatrixIndexSize matrix_index_size_copy_this_original;
-		Matrix* devide_matrix;
-		int loop_i, loop_j;
-		this->GetMatrixIndexSizeCopy(matrix_index_size_copy_this_original);
-		matrix_index_size.Devide(i, j);
-		devide_matrix = new Matrix(matrix_index_size.row_length,
-			matrix_index_size.col_length, 1);
-		for (loop_i = 0; loop_i < matrix_index_size.row_length; ++loop_i)
-			for (loop_j = 0; loop_j < matrix_index_size.col_length; ++loop_j)
-				devide_matrix->SetMatrixMember(loop_i, loop_j,
-					this->GetMatrixMember(loop_i, loop_j));
-		this->SetMatrixIndexSizeCopy(matrix_index_size_copy_this_original);
-		return devide_matrix;
-	}
-	Matrix* GetNewMatrixDevideObjectAdditionSubtractionCopy(int add_or_sub,
-		int i1, int j1, int i2, int j2)
-	{
-		MatrixIndexSize matrix_index_size_copy_this_original;
-		Matrix* devide_matrix;
-		int loop_i, loop_j;
-		this->GetMatrixIndexSizeCopy(matrix_index_size_copy_this_original);
-		matrix_index_size.Devide(i1, j1);
-		devide_matrix = new Matrix(matrix_index_size.row_length,
-			matrix_index_size.col_length, 1);
-		for (loop_i = 0; loop_i < matrix_index_size.row_length; ++loop_i)
-			for (loop_j = 0; loop_j < matrix_index_size.col_length; ++loop_j)
-				devide_matrix->SetMatrixMember(loop_i, loop_j,
-					this->GetMatrixMember(loop_i, loop_j));
-		this->SetMatrixIndexSizeCopyDevideObject(matrix_index_size_copy_this_original,
-			i2, j2);
-		for (loop_i = 0; loop_i < matrix_index_size.row_length; ++loop_i)
-			for (loop_j = 0; loop_j < matrix_index_size.col_length; ++loop_j)
-				add_or_sub ?
-				devide_matrix->SetAddMatrixMember(loop_i, loop_j,
-					this->GetMatrixMember(loop_i, loop_j)) :
-				devide_matrix->SetSubMatrixMember(loop_i, loop_j,
-					this->GetMatrixMember(loop_i, loop_j));
-		this->SetMatrixIndexSizeCopy(matrix_index_size_copy_this_original);
-		return devide_matrix;
-	}
-	void SetAddSubMatrix(int add_or_sub, Matrix& matrix_b)
-	{
-		int loop_i, loop_j;
-		for (loop_i = 0; loop_i < matrix_index_size.row_length; ++loop_i)
-			for (loop_j = 0; loop_j < matrix_index_size.col_length; ++loop_j)
-				add_or_sub ?
-				this->SetAddMatrixMember(loop_i, loop_j,
-					matrix_b.GetMatrixMember(loop_i, loop_j)) :
-				this->SetSubMatrixMember(loop_i, loop_j,
-					matrix_b.GetMatrixMember(loop_i, loop_j));
-	}
 
+	void SetAddMatrixMember(int i, int j, int value);
+	void SetSubMatrixMember(int i, int j, int value);
+	void GetMatrixIndexSizeCopy(MatrixIndexSize& copy);
+	void SetMatrixIndexSizeCopy(const MatrixIndexSize& copy);
+	void SetMatrixIndexSizeCopyDevideObject(const MatrixIndexSize& copy,
+		int i, int j);
+	Matrix* GetNewMatrixDevideObjectCopy(int i, int j);
+	Matrix* GetNewMatrixDevideObjectAdditionSubtractionCopy(int add_or_sub,
+		int i1, int j1, int i2, int j2);
+	void SetAddSubMatrix(int add_or_sub, Matrix& matrix_b);
 };
 
 

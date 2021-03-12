@@ -91,23 +91,26 @@
     <ClCompile Include="9_p_3.cpp" />
     <ClCompile Include="binary_search.cpp" />
     <ClCompile Include="bucket_sort.cpp" />
-    <ClCompile Include="common_sort_parameters.h" />
     <ClCompile Include="counting_sort.cpp" />
     <ClCompile Include="find_max_subarray_divide_and_conquer.cpp" />
     <ClCompile Include="heapsort.cpp" />
-    <ClCompile Include="insertion_sort.h" />
-    <ClCompile Include="linked_list.h" />
+    <ClCompile Include="insertion_sort.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="2_p_4.cpp" />
-    <ClCompile Include="matrix.h" />
+    <ClCompile Include="matrix.cpp" />
     <ClCompile Include="merge_sort.cpp" />
     <ClCompile Include="partition.cpp" />
     <ClCompile Include="selection.cpp" />
     <ClCompile Include="quicksort.cpp" />
     <ClCompile Include="square_matrix_multiply.cpp" />
-    <ClCompile Include="stack_queue.h" />
+    <ClCompile Include="test_func.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="stack_queue.h" />
+    <ClInclude Include="linked_list.h" />
+    <ClInclude Include="common_sort_parameters.h" />
+    <ClInclude Include="insertion_sort.h" />
+    <ClInclude Include="matrix.h" />
     <ClInclude Include="bucket_sort.h" />
     <ClInclude Include="counting_sort.h" />
     <ClInclude Include="heapsort.h" />
@@ -117,6 +120,7 @@
     <ClInclude Include="quicketsort.h" />
     <ClInclude Include="selection.h" />
     <ClInclude Include="element_class.h" />
+    <ClInclude Include="stack_by_list__10_2_2.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemDefinitionGroup />

@@ -14,11 +14,9 @@
     <ClCompile Include="6_5_9.cpp" />
     <ClCompile Include="6_p_2.cpp" />
     <ClCompile Include="6_p_3.cpp" />
-    <ClCompile Include="matrix.h" />
     <ClCompile Include="quicksort.cpp" />
     <ClCompile Include="counting_sort.cpp" />
     <ClCompile Include="bucket_sort.cpp" />
-    <ClCompile Include="insertion_sort.h" />
     <ClCompile Include="8_p_3.cpp" />
     <ClCompile Include="8_3_1.cpp" />
     <ClCompile Include="8_p_2.cpp" />
@@ -28,10 +26,10 @@
     <ClCompile Include="partition.cpp" />
     <ClCompile Include="9_p_1.cpp" />
     <ClCompile Include="9_p_2.cpp" />
-    <ClCompile Include="common_sort_parameters.h" />
     <ClCompile Include="9_p_3.cpp" />
-    <ClCompile Include="stack_queue.h" />
-    <ClCompile Include="linked_list.h" />
+    <ClCompile Include="insertion_sort.cpp" />
+    <ClCompile Include="matrix.cpp" />
+    <ClCompile Include="test_func.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -44,5 +42,11 @@
     <ClInclude Include="partition.h" />
     <ClInclude Include="heapsort.h" />
     <ClInclude Include="element_class.h" />
+    <ClInclude Include="stack_by_list__10_2_2.h" />
+    <ClInclude Include="common_sort_parameters.h" />
+    <ClInclude Include="insertion_sort.h" />
+    <ClInclude Include="matrix.h" />
+    <ClInclude Include="stack_queue.h" />
+    <ClInclude Include="linked_list.h" />
   </ItemGroup>
 </Project>
