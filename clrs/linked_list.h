@@ -232,6 +232,7 @@ public:
 	element will be deleted from memory
 	element must be a member of the list
 	(the pointer must be a memeber in the list)
+	order MIGHT be broken (happen when the last element is delete)
 	10.2-1
 	*/
 	void Delete(SinglyLinkedListElement<T>* element)
@@ -264,43 +265,3 @@ public:
 		}
 	}
 };
-
-int main_linked_list()
-{
-	SinglyLinkedListElement<int>* singly_element;
-	SinglyLinkedList<int> singly_list;
-	singly_element = singly_list.Search(5);
-	singly_list.Insert(1);
-	singly_list.Insert(2);
-	singly_list.Insert(3);
-	singly_list.Insert(4);
-	singly_list.Insert(5);
-	singly_element = singly_list.Search(5);
-	singly_list.Insert(6);
-	singly_list.Insert(7);
-	singly_list.Insert(8);
-	singly_list.Delete(singly_element);
-	singly_element = singly_list.Search(1);
-	singly_list.Delete(singly_element);
-	singly_list.Insert(6);
-	singly_element = singly_list.Search(6);
-	singly_list.Delete(singly_element);
-
-	DoublyLinkedListElement<int>* element;
-	DoublyLinkedListSentinel<int> list;
-//	DoublyLinkedList<int> list;
-	element = list.Search(5);
-	list.Insert(1);
-	list.Insert(2);
-	list.Insert(3);
-	list.Insert(4);
-	list.Insert(5);
-	list.Insert(6);
-	list.Insert(7);
-	list.Insert(8);
-	element = list.Search(5);
-	list.Delete(element);
-	list.Insert(6);
-
-	return 0;
-}
