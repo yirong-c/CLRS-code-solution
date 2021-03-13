@@ -27,9 +27,10 @@ int main_9_p_3();
 int main_stack_queue();
 int main_linked_list();
 int main_10_2_2();
+int main_10_2_3();
 
 int main()
 {
-    main_10_2_2();
+    main_10_2_3();
     return 0;
 }

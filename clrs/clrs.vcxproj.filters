@@ -48,5 +48,6 @@
     <ClInclude Include="matrix.h" />
     <ClInclude Include="stack_queue.h" />
     <ClInclude Include="linked_list.h" />
+    <ClInclude Include="queue_by_list__10_2_3.h" />
   </ItemGroup>
 </Project>

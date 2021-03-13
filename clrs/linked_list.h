@@ -187,6 +187,11 @@ public:
 		next_ = next;
 	}
 
+	SinglyLinkedListElement(T data)
+	{
+		data_ = data;
+		next_ = NULL;
+	}
 };
 
 /*

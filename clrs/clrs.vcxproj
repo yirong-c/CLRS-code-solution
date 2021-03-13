@@ -106,6 +106,7 @@
     <ClCompile Include="test_func.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="queue_by_list__10_2_3.h" />
     <ClInclude Include="stack_queue.h" />
     <ClInclude Include="linked_list.h" />
     <ClInclude Include="common_sort_parameters.h" />

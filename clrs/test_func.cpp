@@ -1,6 +1,7 @@
 #include "stack_queue.h"
 #include "linked_list.h"
 #include "stack_by_list__10_2_2.h"
+#include "queue_by_list__10_2_3.h"
 
 int main_stack_queue()
 {
@@ -156,6 +157,31 @@ int main_10_2_2()
 	ret = stack_by_list.PopCheck();
 	ret = stack_by_list.PopCheck();
 	ret = stack_by_list.PopCheck();
+
+	return 0;
+}
+
+int main_10_2_3()
+{
+	int ret;
+
+	QueueImpleBySinglyLinkedList<int> queue_by_list;
+	queue_by_list.EnqueueCheck(1);
+	queue_by_list.EnqueueCheck(2);
+	queue_by_list.EnqueueCheck(3);
+	queue_by_list.EnqueueCheck(4);
+	queue_by_list.EnqueueCheck(5);
+	queue_by_list.EnqueueCheck(6);
+	queue_by_list.EnqueueCheck(7);
+	queue_by_list.EnqueueCheck(8);
+	ret = queue_by_list.DequeueCheck();
+	ret = queue_by_list.DequeueCheck();
+	ret = queue_by_list.DequeueCheck();
+	ret = queue_by_list.DequeueCheck();
+	ret = queue_by_list.DequeueCheck();
+	ret = queue_by_list.DequeueCheck();
+	ret = queue_by_list.DequeueCheck();
+	ret = queue_by_list.DequeueCheck();
 
 	return 0;
 }
