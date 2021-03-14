@@ -113,7 +113,7 @@ template <class T>
 class DoublyLinkedListSentinel
 {
 public:
-	DoublyLinkedListElement<T> nil_;
+	DoublyLinkedListElement<T> nil_;//data might not be NULL
 
 	/*
 	O(n)
@@ -128,6 +128,26 @@ public:
 			x = x->next_;
 		}
 		return x;
+	}
+
+	/*
+	O(n)
+	if element_data is not found, the function will return NULL
+	10.2-4
+	*/
+	DoublyLinkedListElement<T>* SearchOpt(T element_data)
+	{
+		DoublyLinkedListElement<T>* x;
+		x = nil_.next_;
+		nil_.data_ = element_data;
+		while (x->data_ != element_data)
+		{
+			x = x->next_;
+		}
+		if (x == &nil_)
+			return NULL;
+		else
+			return x;
 	}
 
 	/*

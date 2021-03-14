@@ -31,6 +31,6 @@ int main_10_2_3();
 
 int main()
 {
-    main_10_2_3();
+    main_linked_list();
     return 0;
 }
