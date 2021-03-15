@@ -216,6 +216,7 @@ public:
 
 /*
 unsorted singly linked list
+10.2-5
 */
 template <class T>
 class SinglyLinkedList
@@ -258,6 +259,7 @@ public:
 	element must be a member of the list
 	(the pointer must be a memeber in the list)
 	order MIGHT be broken (happen when the last element is delete)
+	Data of pointers will be changed
 	10.2-1
 	*/
 	void Delete(SinglyLinkedListElement<T>* element)
@@ -279,11 +281,160 @@ public:
 		delete next;
 	}
 
+	/*
+	O(n)
+	element will be deleted from memory
+	element must be a member of the list
+	(the pointer must be a memeber in the list)
+	order will NOT be broken
+	Data of pointers will NOT be changed
+	*/
+	void DeleteLinear(SinglyLinkedListElement<T>* element)
+	{
+		SinglyLinkedListElement<T>* x, *before;
+		x = head_;
+		before = NULL;
+		while (x != element)
+		{
+			before = x;
+			x = x->next_;
+		}
+		if (before)
+			before->next_ = x->next_;
+		else
+			head_ = x->next_;
+		delete x;
+	}
+
 	~SinglyLinkedList()
 	{
 		SinglyLinkedListElement<T>* x;
 		x = head_;
 		while (x != NULL)
+		{
+			delete x;
+			x = x->next_;
+		}
+	}
+};
+
+/*
+unsorted singly linked list
+use sentinels
+10.2-5
+*/
+template <class T>
+class SinglyLinkedListSentinel
+{
+public:
+	SinglyLinkedListElement<T> nil_ = NULL;//data might not be NULL
+
+	/*
+	O(n)
+	if element_data is not found, the function will return nil_
+	*/
+	SinglyLinkedListElement<T>* Search(T element_data)
+	{
+		SinglyLinkedListElement<T>* x;
+		x = nil_.next_;
+		while (x != &nil_ && x->data_ != element_data)
+		{
+			x = x->next_;
+		}
+		return x;
+	}
+
+	/*
+	O(n)
+	if element_data is not found, the function will return NULL
+	*/
+	SinglyLinkedListElement<T>* SearchOpt(T element_data)
+	{
+		SinglyLinkedListElement<T>* x;
+		x = nil_.next_;
+		nil_.data_ = element_data;
+		while (x->data_ != element_data)
+		{
+			x = x->next_;
+		}
+		if (x == &nil_)
+			return NULL;
+		else
+			return x;
+	}
+
+	/*
+	O(1)
+	*/
+	void Insert(T element_data)
+	{
+		nil_.next_ = 
+			new SinglyLinkedListElement<T>(element_data, nil_.next_);
+	}
+
+	/*
+	O(1)
+	element will be deleted from memory
+	element must be a member of the list
+	(the pointer must be a memeber in the list)
+	order MIGHT be broken (happen when the last element is delete)
+	Data of pointers will be changed
+	10.2-1
+	*/
+	void Delete(SinglyLinkedListElement<T>* element)
+	{
+		SinglyLinkedListElement<T>* next;
+		if (element->next_ != &nil_)
+		{
+			next = element->next_;
+			memcpy(&(element->data_), &(next->data_), sizeof(T));
+			element->next_ = next->next_;
+		}
+		else
+		{
+			//order will be broken
+			next = nil_.next_;
+			memcpy(&(element->data_), &(next->data_), sizeof(T));
+			nil_.next_ = next->next_;
+		}
+		delete next;
+	}
+
+	/*
+	O(n)
+	element will be deleted from memory
+	element must be a member of the list
+	(the pointer must be a memeber in the list)
+	order will NOT be broken
+	Data of pointers will NOT be changed
+	*/
+	void DeleteLinear(SinglyLinkedListElement<T>* element)
+	{
+		SinglyLinkedListElement<T>* x, *before;
+		x = nil_.next_;
+		before = NULL;
+		while (x != element)
+		{
+			before = x;
+			x = x->next_;
+		}
+		if (before)
+			before->next_ = x->next_;
+		else
+			nil_.next_ = x->next_;
+		delete x;
+	}
+
+	SinglyLinkedListSentinel()
+	{
+		nil_.next_ = &nil_;
+	}
+
+	~SinglyLinkedListSentinel()
+	{
+		SinglyLinkedListElement<T>* x;
+		x = nil_.next_;
+		while (x != &nil_)
 		{
 			delete x;
 			x = x->next_;
