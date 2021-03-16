@@ -102,6 +102,40 @@ int main_stack_queue()
 
 int main_linked_list()
 {
+	DoublyLinkedListElement<int> *element, *element_b, 
+		*element_c, *element_d;
+	DoublyLinkedListSentinel<int> list, list_b, list_ret;
+	//	DoublyLinkedList<int> list;
+	element = list.Search(5);
+	list.Insert(1);
+	list.Insert(2);
+	list.Insert(3);
+	list.Insert(4);
+	list.Insert(5);
+	list.Insert(6);
+	list.Insert(7);
+	list.Insert(8);
+	element = list.Search(5);
+	list.Delete(element);
+	list.Insert(6);
+	element = list.SearchOpt(7);
+	element_b = list.SearchOpt(4);
+
+	list_b.Insert(11);
+	list_b.Insert(12);
+	list_b.Insert(13);
+	list_b.Insert(14);
+	list_b.Insert(15);
+	list_b.Insert(16);
+	list_b.Insert(17);
+	list_b.Insert(18);
+	list_b.Insert(19);
+	list_b.Insert(20);
+	element_c = list_b.SearchOpt(18);
+	element_d = list_b.SearchOpt(13);
+
+	DoublyLinkedListSentinelUnion(element, element_b, element_c, 
+		element_d, list_ret);
 
 	SinglyLinkedListElement<int>* singly_element;
 	SinglyLinkedListSentinel<int> singly_list;
@@ -125,23 +159,6 @@ int main_linked_list()
 	singly_element = singly_list.SearchOpt(6);
 	singly_element = singly_list.Search(6);
 	singly_list.DeleteLinear(singly_element);
-
-	DoublyLinkedListElement<int>* element;
-	DoublyLinkedListSentinel<int> list;
-	//	DoublyLinkedList<int> list;
-	element = list.Search(5);
-	list.Insert(1);
-	list.Insert(2);
-	list.Insert(3);
-	list.Insert(4);
-	list.Insert(5);
-	list.Insert(6);
-	list.Insert(7);
-	list.Insert(8);
-	element = list.Search(5);
-	list.Delete(element);
-	list.Insert(6);
-	element = list.SearchOpt(8);
 
 	return 0;
 }

@@ -441,3 +441,31 @@ public:
 		}
 	}
 };
+
+/*
+O(1)
+sets S1 and S2 might be destroyed
+10.2-6
+*/
+template <typename T>
+void DoublyLinkedListSentinelUnion
+	(DoublyLinkedListElement<T>* s1_first,
+	DoublyLinkedListElement<T>* s1_last,
+	DoublyLinkedListElement<T>* s2_first,
+	DoublyLinkedListElement<T>* s2_last,
+	DoublyLinkedListSentinel<T>& set_return)
+{
+	s1_first->prev_->next_ = s1_last->next_;
+	s1_last->next_->prev_ = s1_first->prev_;
+	s2_first->prev_->next_ = s2_last->next_;
+	s2_last->next_->prev_ = s2_first->prev_;
+	
+	s1_last->next_ = s2_first;
+	s2_first->prev_ = s1_last;
+
+	s2_last->next_ = (&set_return.nil_)->next_;
+	s1_first->prev_ = &set_return.nil_;
+
+	(&set_return.nil_)->next_->prev_ = s2_last;
+	(&set_return.nil_)->next_ = s1_first;
+}
