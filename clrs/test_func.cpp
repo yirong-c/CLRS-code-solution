@@ -102,7 +102,32 @@ int main_stack_queue()
 
 int main_linked_list()
 {
-	DoublyLinkedListElement<int> *element, *element_b, 
+	SinglyLinkedListElement<int>* singly_element;
+	SinglyLinkedList<int> singly_list;
+	//singly_element = singly_list.SearchOpt(5);
+	singly_element = singly_list.Search(5);
+	singly_list.Insert(1);
+	singly_list.Insert(2);
+	singly_list.Insert(3);
+	singly_list.Insert(4);
+	singly_list.Insert(5);
+	//singly_element = singly_list.SearchOpt(5);
+	singly_element = singly_list.Search(5);
+	singly_list.Insert(6);
+	singly_list.Insert(7);
+	singly_list.Insert(8);
+	singly_list.DeleteLinear(singly_element);
+	//singly_element = singly_list.SearchOpt(1);
+	singly_element = singly_list.Search(1);
+	singly_list.DeleteLinear(singly_element);
+	singly_list.Insert(6);
+	//singly_element = singly_list.SearchOpt(6);
+	singly_element = singly_list.Search(6);
+	singly_list.DeleteLinear(singly_element);
+
+	singly_list.reverse();
+
+	DoublyLinkedListElement<int> *element, *element_b,
 		*element_c, *element_d;
 	DoublyLinkedListSentinel<int> list, list_b, list_ret;
 	//	DoublyLinkedList<int> list;
@@ -136,29 +161,6 @@ int main_linked_list()
 
 	DoublyLinkedListSentinelUnion(element, element_b, element_c, 
 		element_d, list_ret);
-
-	SinglyLinkedListElement<int>* singly_element;
-	SinglyLinkedListSentinel<int> singly_list;
-	singly_element = singly_list.SearchOpt(5);
-	singly_element = singly_list.Search(5);
-	singly_list.Insert(1);
-	singly_list.Insert(2);
-	singly_list.Insert(3);
-	singly_list.Insert(4);
-	singly_list.Insert(5);
-	singly_element = singly_list.SearchOpt(5);
-	singly_element = singly_list.Search(5);
-	singly_list.Insert(6);
-	singly_list.Insert(7);
-	singly_list.Insert(8);
-	singly_list.DeleteLinear(singly_element);
-	singly_element = singly_list.SearchOpt(1);
-	singly_element = singly_list.Search(1);
-	singly_list.DeleteLinear(singly_element);
-	singly_list.Insert(6);
-	singly_element = singly_list.SearchOpt(6);
-	singly_element = singly_list.Search(6);
-	singly_list.DeleteLinear(singly_element);
 
 	return 0;
 }

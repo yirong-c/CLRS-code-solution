@@ -306,6 +306,24 @@ public:
 		delete x;
 	}
 
+	/*
+	O(n)
+	10.2-7
+	*/
+	void reverse()
+	{
+		SinglyLinkedListElement<T> *last, *next;
+		next = head_;
+		last = NULL;
+		while (next != NULL)
+		{
+			head_ = next;
+			next = head_->next_;
+			head_->next_ = last;
+			last = head_;
+		}
+	}
+
 	~SinglyLinkedList()
 	{
 		SinglyLinkedListElement<T>* x;
