@@ -30,6 +30,7 @@
     <ClCompile Include="insertion_sort.cpp" />
     <ClCompile Include="matrix.cpp" />
     <ClCompile Include="test_func.cpp" />
+    <ClCompile Include="pointer_object.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -49,5 +50,6 @@
     <ClInclude Include="stack_queue.h" />
     <ClInclude Include="linked_list.h" />
     <ClInclude Include="queue_by_list__10_2_3.h" />
+    <ClInclude Include="pointer_object.h" />
   </ItemGroup>
 </Project>

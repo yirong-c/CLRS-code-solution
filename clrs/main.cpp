@@ -28,9 +28,10 @@ int main_stack_queue();
 int main_linked_list();
 int main_10_2_2();
 int main_10_2_3();
+int main_pointer_object();
 
 int main()
 {
-    main_linked_list();
+    main_pointer_object();
     return 0;
 }

@@ -2,6 +2,7 @@
 #include "linked_list.h"
 #include "stack_by_list__10_2_2.h"
 #include "queue_by_list__10_2_3.h"
+#include "pointer_object.h"
 
 int main_stack_queue()
 {
@@ -207,6 +208,21 @@ int main_10_2_3()
 	ret = queue_by_list.DequeueCheck();
 	ret = queue_by_list.DequeueCheck();
 	ret = queue_by_list.DequeueCheck();
+
+	return 0;
+}
+
+int main_pointer_object()
+{
+	int i;
+	vector<void*> container(10);
+	Allocater a(20, 10);
+	for (i = 0; i < 10; ++i)
+		container[i] = a.AllocateObject();
+	for (i = 0; i < 10; ++i)
+		a.FreeObject(container[i]);
+	for (i = 0; i < 10; ++i)
+		container[i] = a.AllocateObject();
 
 	return 0;
 }

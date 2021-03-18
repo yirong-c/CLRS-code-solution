@@ -100,12 +100,14 @@
     <ClCompile Include="matrix.cpp" />
     <ClCompile Include="merge_sort.cpp" />
     <ClCompile Include="partition.cpp" />
+    <ClCompile Include="pointer_object.cpp" />
     <ClCompile Include="selection.cpp" />
     <ClCompile Include="quicksort.cpp" />
     <ClCompile Include="square_matrix_multiply.cpp" />
     <ClCompile Include="test_func.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="pointer_object.h" />
     <ClInclude Include="queue_by_list__10_2_3.h" />
     <ClInclude Include="stack_queue.h" />
     <ClInclude Include="linked_list.h" />
