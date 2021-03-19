@@ -75,6 +75,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
+    <ClCompile Include="10_3_5.cpp" />
     <ClCompile Include="4_1_2.cpp" />
     <ClCompile Include="4_1_3.cpp" />
     <ClCompile Include="4_1_5.cpp" />

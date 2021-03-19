@@ -29,9 +29,10 @@ int main_linked_list();
 int main_10_2_2();
 int main_10_2_3();
 int main_pointer_object();
+int main_10_3_5();
 
 int main()
 {
-    main_pointer_object();
+    main_10_3_5();
     return 0;
 }
