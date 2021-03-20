@@ -226,3 +226,4 @@ int main_pointer_object()
 
 	return 0;
 }
+
