@@ -1,0 +1,41 @@
+// See https://go.microsoft.com/fwlink/?LinkId=733558
+// for the documentation about the tasks.json format
+{
+    "tasks": [
+        {
+            //编译源文件
+            "type": "shell",
+            "label": "g++ build active file",
+            "command": "/usr/bin/g++",
+            "args": [
+                "-std=c++11",    //C++版本， 可不加
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "/usr/bin"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {   //删除二进制文件
+            "type": "shell",
+            "label": "delete output file",
+            "command": "rm",
+            "args": [
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "presentation": {
+                "reveal": "silent", //删除过程不切换终端（专注程序输出）
+            }
+        }
+    ],
+    "version": "2.0.0"
+}
