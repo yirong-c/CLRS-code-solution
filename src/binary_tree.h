@@ -3,14 +3,15 @@
 
 #include "stdafx.h"
 
-class BinaryTree
+class BinaryTreeNode
 {
 public:
 	int key_;
-    BinaryTree* left_ = NULL;
-    BinaryTree* right_ = NULL;
+    BinaryTreeNode* left_ = NULL;
+    BinaryTreeNode* right_ = NULL;
+    void* data_;
 
-    BinaryTree(int key)
+    BinaryTreeNode(int key)
     {
         key_ = key;
         left_;
