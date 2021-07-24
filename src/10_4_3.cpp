@@ -3,6 +3,7 @@
 
 /*
 10.4.3
+(DO use temp_ of BinaryTreeNode object)
 */
 void PrintBinaryTreeNonrecursive(BinaryTreeNode* binary_tree)
 {
@@ -34,9 +35,39 @@ void PrintBinaryTreeNonrecursive(BinaryTreeNode* binary_tree)
         {
             if (stack.StackEmpty())
                 break;
-            else
-                binary_tree = stack.PopCheck();
+            binary_tree = stack.PopCheck();
         }
+    }
+}
+
+/*
+10.4.3
+better one
+(do NOT use temp_ of BinaryTreeNode object)
+*/
+void PrintBinaryTreeNonrecursiveAnother(BinaryTreeNode* binary_tree)
+{
+    Stack<BinaryTreeNode*> stack(30);
+    stack.Push(binary_tree);
+    while (true)
+    {
+        while (binary_tree->left_ != NULL)
+        {
+            binary_tree = binary_tree->left_;
+            stack.PushCheck(binary_tree);
+        }
+        binary_tree = stack.Pop();
+        printf("%i\n", binary_tree->key_);
+        while (binary_tree->right_ == NULL)
+        {
+            if (stack.StackEmpty())
+                return;
+            binary_tree = stack.Pop();
+            printf("%i\n", binary_tree->key_);
+
+        }
+        binary_tree = binary_tree->right_;
+        stack.PushCheck(binary_tree);
     }
 }
 
@@ -50,13 +81,14 @@ int main()
     BinaryTreeNode b6(2);
     BinaryTreeNode b7(21);
     BinaryTreeNode b8(5);
-    b1.left_ = &b2;
+    //b1.left_ = &b2;
     b1.right_ = &b3;
     b2.left_ = &b4;
     b2.right_ = &b5;
     b3.left_ = &b6;
     b3.right_ = &b7;
     b5.left_ = &b8;
-    PrintBinaryTreeNonrecursive(&b1);
+    b7.right_ = &b2;//test
+    PrintBinaryTreeNonrecursiveAnother(&b1);
     return 0;
 }
