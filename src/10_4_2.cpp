@@ -1,5 +1,8 @@
 #include "binary_tree.h"
 
+/*
+10.4.2
+*/
 void PrintBinaryTreeRecursive(BinaryTree* binary_tree)
 {
     if (binary_tree == NULL)
