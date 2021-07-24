@@ -12,7 +12,7 @@
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${fileDirname}/../bin/${fileBasenameNoExtension}"
             ],
             "options": {
                 "cwd": "/usr/bin"
@@ -30,7 +30,7 @@
             "label": "delete output file",
             "command": "rm",
             "args": [
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${fileDirname}/../bin/${fileBasenameNoExtension}"
             ],
             "presentation": {
                 "reveal": "silent", //删除过程不切换终端（专注程序输出）
