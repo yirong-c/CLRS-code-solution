@@ -185,6 +185,18 @@ public:
 
 	/*
 	O(1)
+	*/
+	void InsertAfter(T element_data, DoublyLinkedListElement<T>* after_this_element)
+	{
+		DoublyLinkedListElement<T>* x;
+		x = new DoublyLinkedListElement<T>(element_data, 
+			after_this_element, after_this_element->next_);
+		x->next_->prev_ = x;
+		x->prev_->next_ = x;
+	}
+
+	/*
+	O(1)
 	element will be deleted from memory
 	element must be a member of the list
 	(the pointer must be a memeber in the list)
