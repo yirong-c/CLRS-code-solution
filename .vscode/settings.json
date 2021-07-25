@@ -2,6 +2,8 @@
     "files.associations": {
         "cstdio": "cpp",
         "ctime": "cpp",
-        "climits": "cpp"
+        "climits": "cpp",
+        "*.tcc": "cpp",
+        "list": "cpp"
     }
 }
