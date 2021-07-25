@@ -34,6 +34,17 @@ public:
 		prev_ = NULL;
 		next_ = NULL;
 	}
+
+	//TODO: Have not test
+	void Swap(DoublyLinkedListElement* another_list)
+	{
+		SwapTemplate(this->prev_, another_list->prev_);
+		SwapTemplate(this->next_, another_list->next_);
+		this->prev_->next_ = this;
+		this->next_->prev_ = this;
+		another_list->prev_->next_ = another_list;
+		another_list->next_->prev_ = another_list;
+	}
 };
 
 /*
@@ -114,6 +125,7 @@ class DoublyLinkedListSentinel
 {
 public:
 	DoublyLinkedListElement<T> nil_;//data might not be NULL
+	int length;
 
 	/*
 	O(n)
@@ -159,6 +171,19 @@ public:
 		x = new DoublyLinkedListElement<T>(element_data, &nil_, nil_.next_);
 		nil_.next_->prev_ = x;
 		nil_.next_ = x;
+		++length;
+	}
+
+	/*
+	O(1)
+	*/
+	void InsertAtEnd(T element_data)
+	{
+		DoublyLinkedListElement<T>* x;
+		x = new DoublyLinkedListElement<T>(element_data, nil_.prev_, &nil_);
+		nil_.prev_->next_ = x;
+		nil_.prev_ = x;
+		++length;
 	}
 
 	/*
@@ -172,11 +197,13 @@ public:
 		element->prev_->next_ = element->next_;
 		element->next_->prev_ = element->prev_;
 		delete element;
+		--length;
 	}
 
 	DoublyLinkedListSentinel()
 	{
 		nil_.next_ = nil_.prev_ = &nil_;
+		length = 0;
 	}
 
 	~DoublyLinkedListSentinel()
