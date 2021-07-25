@@ -4,162 +4,102 @@
 #include "linked_list.h"
 
 template <class T>
-class MergeableMinHeap
+class MergeableMinHeapUnsortedList
 {
 public:
-    class HeapBinaryTreeNode
+    class ListElementData
     {
     public:
         int key_;
         T data_;
 
-        HeapBinaryTreeNode(int key)
+        ListElementData(int key)
         {
             key_ = key;
             data_ = NULL;
         }
 
-        HeapBinaryTreeNode(int key, T data)
+        ListElementData(int key, T data)
         {
             key_ = key;
             data_ = data;
         }
     };
 
-    typedef HeapBinaryTreeNode* ListElementDataPointer;
-    typedef DoublyLinkedListSentinel< ListElementDataPointer > List;
-    typedef DoublyLinkedListElement< ListElementDataPointer > ListElement;
+    typedef DoublyLinkedListSentinel< ListElementData* > List;
+    typedef DoublyLinkedListElement< ListElementData* > ListElement;
 
     List* list_;
 
-    MergeableMinHeap()
+    /*
+    MakeHeap
+    O(1)
+    */
+    MergeableMinHeapUnsortedList()
     {
         list_ = new List();
     }
 
-    ~MergeableMinHeap()
+    ~MergeableMinHeapUnsortedList()
     {
         delete list_;
     }
 
     /*
-    O(n)
+    O(1)
     */
-    void MinHeapify(const int index, ListElement * const element_at_index)
+    void Insert(ListElementData* const list_element_data)
     {
-        int i, smallest_element_index;
-        ListElement *element_at_left_child, *element_at_right_child, 
-        *smallest_element;
-        //init smallest_element_index and smallest_element
-        smallest_element_index = index;
-        smallest_element = element_at_index;
-        //find pointer of element of left child
-        element_at_left_child = element_at_index;
-        for (i = index; i < BinaryTreeLeft(index); ++i)
-        {
-            element_at_left_child = element_at_left_child->next_;
-            if (element_at_left_child == &list_->nil_)
-            {
-                //pointer of element of list has reached nil_
-                return;
-            }
-        }
-        //test left child
-        if (element_at_left_child->data_ != NULL && 
-        element_at_left_child->data_->key_ < smallest_element->data_->key_)
-        {
-            smallest_element_index = BinaryTreeLeft(index);
-            smallest_element = element_at_left_child;
-        }
-        //find pointer of element of right child
-        element_at_right_child = element_at_left_child->next_;
-        if (element_at_right_child == &list_->nil_)
-        {
-            //pointer of element of list has reached nil_
-            if (smallest_element_index != index)
-            {
-                //swap smallest_element and element_at_index in list
-                SwapTemplate(smallest_element->data_, element_at_index->data_);
-            }
-            return;//TODO
-        }
-        //test right child
-        if (element_at_right_child->data_ != NULL && 
-        element_at_right_child->data_->key_ < smallest_element->data_->key_)
-        {
-            smallest_element_index = BinaryTreeLeft(index);
-            smallest_element = element_at_right_child;
-        }
-        if (smallest_element_index != index)
-        {
-            //swap smallest_element and element_at_index in list
-            SwapTemplate(smallest_element->data_, element_at_index->data_);
-            MinHeapify(smallest_element_index, smallest_element);
-        }
+        list_->Insert(list_element_data);
     }
 
     /*
     O(n)
     */
-    void MinHeapCheckParents(const int index, 
-        ListElement * const element_at_index)
+    ListElement* Minimum()
     {
-        int i, parent_element_index, child_element_index;
-        ListElement *parent_element, *child_element;
-        //init parent_element_index and parent_element
-        parent_element_index = index;
-        parent_element = element_at_index;
-        //compare to key of parents
-        while (parent_element_index > 0)
+        ListElement *traversing_element, *smallest_element;
+        int smallest_key;
+        traversing_element = list_->nil_.next_;
+        smallest_element = NULL;
+        smallest_key = INT_MAX;
+        while (traversing_element != &list_->nil_)
         {
-            child_element = parent_element;
-            child_element_index = parent_element_index;
-            parent_element_index = BinaryTreeParent(parent_element_index);
-            for (i = child_element_index; i > parent_element_index; --i)
+            if (traversing_element->data_->key_ < smallest_key)
             {
-                parent_element = parent_element->prev_;
+                smallest_key = traversing_element->data_->key_;
+                smallest_element = traversing_element;
             }
-            if (parent_element->data_->key_ > child_element->data_->key_)
-            {
-                SwapTemplate(parent_element->data_, child_element->data_);   
-            }
-            else
-            {
-                break;
-            }
+            traversing_element = traversing_element->next_;
         }
+        return smallest_element;
     }
 
-    void HeapDecreaseKey(const int index, 
-        ListElement * const element_at_index, const int key)
+    /*
+    O(n)
+    */
+    ListElementData* ExtractMin()
     {
-        if (key > element_at_index->data_->key_)
-		    throw "new key is greater than current key";
-        element_at_index->data_->key_ = key;
-        this->MinHeapCheckParents(index, element_at_index);
+        ListElement* smallest_element;
+        ListElementData* smallest_element_data;
+        smallest_element = this->Minimum();
+        smallest_element_data = smallest_element->data_;
+        list_->Delete(smallest_element);
+        return smallest_element_data;
     }
 
-    void MinHeapInsert(ListElementDataPointer list_element_data)
+    /*
+    O(n)
+    */
+    void Union(MergeableMinHeapUnsortedList& another_heap)
     {
-        list_->InsertAtEnd(list_element_data);
-        this->MinHeapCheckParents(list_->length - 1, list_->nil_.prev_);
+        this->list_->nil_.prev_->next_ = another_heap.list_->nil_.next_;
+        this->list_->nil_.prev_->next_->prev_ = this->list_->nil_.prev_;
+        this->list_->nil_.prev_ = another_heap.list_->nil_.prev_;
+        this->list_->nil_.prev_->next_ = &this->list_->nil_;
+        another_heap.list_->nil_.next_ = NULL;
+        another_heap.list_->nil_.prev_ = NULL;
     }
-
-    ListElementDataPointer Minimum()
-    {
-        return list_->nil_.next_->data_;
-    }
-
-    ListElementDataPointer ExtractMin()
-    {
-        ListElementDataPointer min;
-        min = this->Minimum();
-        list_->nil_.next_->data_ = list_->nil_.prev_->data_;
-        list_->Delete(list_->nil_.prev_);
-        MinHeapify(0, list_->nil_.next_);
-        return min;
-    }
-
 };
 
 #endif

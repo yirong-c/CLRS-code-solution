@@ -2,31 +2,26 @@
 
 int main()
 {
-    MergeableMinHeap<void*>::HeapBinaryTreeNode n1(1);
-    MergeableMinHeap<void*>::HeapBinaryTreeNode n2(2);
-    MergeableMinHeap<void*>::HeapBinaryTreeNode n3(3);
-    MergeableMinHeap<void*>::HeapBinaryTreeNode n4(4);
-    MergeableMinHeap<void*>::HeapBinaryTreeNode n5(5);
-    MergeableMinHeap<void*>::HeapBinaryTreeNode n6(6);
+    MergeableMinHeapUnsortedList<void*>::ListElementData n1(1);
+    MergeableMinHeapUnsortedList<void*>::ListElementData n2(2);
+    MergeableMinHeapUnsortedList<void*>::ListElementData n3(3);
+    MergeableMinHeapUnsortedList<void*>::ListElementData n4(4);
+    MergeableMinHeapUnsortedList<void*>::ListElementData n5(5);
+    MergeableMinHeapUnsortedList<void*>::ListElementData n6(6);
 
-    MergeableMinHeap<void*> mergeable_min_heap;
-    mergeable_min_heap.MinHeapInsert(&n4);
-    mergeable_min_heap.MinHeapInsert(&n6);
-    mergeable_min_heap.MinHeapInsert(&n5);
-    mergeable_min_heap.MinHeapInsert(&n3);
-    mergeable_min_heap.MinHeapInsert(&n1);
-    mergeable_min_heap.MinHeapInsert(&n2);
- 
-    MergeableMinHeap<void*>::HeapBinaryTreeNode* extract;
-    extract = mergeable_min_heap.ExtractMin();
-    extract = mergeable_min_heap.ExtractMin();
-    extract = mergeable_min_heap.ExtractMin();
-    extract = mergeable_min_heap.ExtractMin();
-    extract = mergeable_min_heap.ExtractMin();
-    extract = mergeable_min_heap.ExtractMin();
-    extract = mergeable_min_heap.ExtractMin();
+    MergeableMinHeapUnsortedList<void*> mergeable_min_heap, 
+                                    mergeable_min_heap_another;
+    mergeable_min_heap.Insert(&n4);
+    mergeable_min_heap.Insert(&n6);
+    mergeable_min_heap.Insert(&n3);
+    mergeable_min_heap.Insert(&n2);
+    mergeable_min_heap_another.Insert(&n5);
+    mergeable_min_heap_another.Insert(&n1);
+
+    mergeable_min_heap.Union(mergeable_min_heap_another);
+
+    
+
 
     return 0;
 }
-
-

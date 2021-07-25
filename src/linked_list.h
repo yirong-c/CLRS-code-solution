@@ -125,7 +125,6 @@ class DoublyLinkedListSentinel
 {
 public:
 	DoublyLinkedListElement<T> nil_;//data might not be NULL
-	int length;
 
 	/*
 	O(n)
@@ -171,7 +170,6 @@ public:
 		x = new DoublyLinkedListElement<T>(element_data, &nil_, nil_.next_);
 		nil_.next_->prev_ = x;
 		nil_.next_ = x;
-		++length;
 	}
 
 	/*
@@ -183,7 +181,6 @@ public:
 		x = new DoublyLinkedListElement<T>(element_data, nil_.prev_, &nil_);
 		nil_.prev_->next_ = x;
 		nil_.prev_ = x;
-		++length;
 	}
 
 	/*
@@ -197,13 +194,11 @@ public:
 		element->prev_->next_ = element->next_;
 		element->next_->prev_ = element->prev_;
 		delete element;
-		--length;
 	}
 
 	DoublyLinkedListSentinel()
 	{
 		nil_.next_ = nil_.prev_ = &nil_;
-		length = 0;
 	}
 
 	~DoublyLinkedListSentinel()
