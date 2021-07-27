@@ -25,7 +25,7 @@ void DirectAddressDelete(vector<ElementInSet*>& table, ElementInSet* element)
 11.1-1
 O(n)
 */
-ElementInSet* FindMaxElement(vector<ElementInSet*> table)
+ElementInSet* FindMaxElement(vector<ElementInSet*>& table)
 {
     int i;
     ElementInSet* max;
@@ -54,8 +54,7 @@ int main()
 
     ElementInSet* result;
 
-    vector<ElementInSet*> table;
-    table.resize(4);
+    vector<ElementInSet*> table(4);
     DirectAddressInsert(table, &e1);
     result = FindMaxElement(table);
     DirectAddressInsert(table, &e0);
