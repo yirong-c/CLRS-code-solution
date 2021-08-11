@@ -4,6 +4,8 @@
         "ctime": "cpp",
         "climits": "cpp",
         "*.tcc": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "cmath": "cpp",
+        "functional": "cpp"
     }
 }

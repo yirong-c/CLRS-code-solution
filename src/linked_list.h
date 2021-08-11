@@ -164,35 +164,38 @@ public:
 	/*
 	O(1)
 	*/
-	void Insert(T element_data)
+	DoublyLinkedListElement<T>* Insert(T element_data)
 	{
 		DoublyLinkedListElement<T>* x;
 		x = new DoublyLinkedListElement<T>(element_data, &nil_, nil_.next_);
 		nil_.next_->prev_ = x;
 		nil_.next_ = x;
+		return x;
 	}
 
 	/*
 	O(1)
 	*/
-	void InsertAtEnd(T element_data)
+	DoublyLinkedListElement<T>* InsertAtEnd(T element_data)
 	{
 		DoublyLinkedListElement<T>* x;
 		x = new DoublyLinkedListElement<T>(element_data, nil_.prev_, &nil_);
 		nil_.prev_->next_ = x;
 		nil_.prev_ = x;
+		return x;
 	}
 
 	/*
 	O(1)
 	*/
-	void InsertAfter(T element_data, DoublyLinkedListElement<T>* after_this_element)
+	static DoublyLinkedListElement<T>* InsertAfter(T element_data, DoublyLinkedListElement<T>* after_this_element)
 	{
 		DoublyLinkedListElement<T>* x;
 		x = new DoublyLinkedListElement<T>(element_data, 
 			after_this_element, after_this_element->next_);
 		x->next_->prev_ = x;
 		x->prev_->next_ = x;
+		return x;
 	}
 
 	/*
@@ -201,7 +204,7 @@ public:
 	element must be a member of the list
 	(the pointer must be a memeber in the list)
 	*/
-	void Delete(DoublyLinkedListElement<T>* element)
+	static void Delete(DoublyLinkedListElement<T>* element)
 	{
 		element->prev_->next_ = element->next_;
 		element->next_->prev_ = element->prev_;
