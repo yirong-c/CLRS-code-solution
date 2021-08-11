@@ -47,7 +47,7 @@ int main( int argc, char* argv[] ) {
     return result;
 }
 
-TEST_CASE("ChainedHashSearch are tested", "[ChainedHashSearch]") {
+TEST_CASE("ChainedHash are tested", "[ChainedHash]") {
     CHECK(chained_hash->ChainedHashSearch(5) == element5);
     CHECK(chained_hash->ChainedHashSearch(28) == element28);
     CHECK(chained_hash->ChainedHashSearch(19) == element19);
