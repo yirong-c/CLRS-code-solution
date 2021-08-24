@@ -8,9 +8,9 @@ ubuntu 5.8.0
 
 ## Completed Part
 
-Chapter 2 - 9
+Chapter 2 - 10
 
-Chapter 10 is updating
+Chapter 11 is updating
 
 ## Contact
 
@@ -22,8 +22,7 @@ QQ: 2093003592
 
 ## Notes
 
-已完成部分的算法和题目中的需要写代码的全部都使用C++实现了并放到了这个仓库中。
+The completed algorithms and the problems that require code were all implemented in C++ and put into this repository.
 
-非代码实现的题目由于我是写在本子上的，没法提交。
+The non-code-implemented topics cannot be submitted because I wrote them in a notebook.
 
-欢迎联系我讨论算法和题目。
