@@ -87,3 +87,27 @@ void InorderTreeWalkNonRecursiveNonStack(BinaryTreeNode<T1, T2>* x)
         }
     }
 }
+
+//12.1-4
+template <typename T1, typename T2>
+void PreorderTreeWalk(BinaryTreeNode<T1, T2>* x)
+{
+    if (x != nullptr)
+    {
+        std::cout << x->key << std::endl;
+        PreorderTreeWalk(x->left);
+        PreorderTreeWalk(x->right);
+    }
+}
+
+//12.1-4
+template <typename T1, typename T2>
+void PostorderTreeWalk(BinaryTreeNode<T1, T2>* x)
+{
+    if (x != nullptr)
+    {
+        PostorderTreeWalk(x->left);
+        PostorderTreeWalk(x->right);
+        std::cout << x->key << std::endl;
+    }
+}

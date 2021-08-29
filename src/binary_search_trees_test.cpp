@@ -24,9 +24,17 @@ int main()
     n14.SetRelation(&n10, &n13, &n15);
     n15.SetRelation(&n14, nullptr, &n16);
     n16.SetRelation(&n15, nullptr, nullptr);
+
     //test functions
     InorderTreeWalkNonRecursive(&n10);
     std::cout << "---" << std::endl;
     InorderTreeWalkNonRecursiveNonStack(&n10);
+
+    std::cout << "---" << std::endl;
+
+    PreorderTreeWalk(&n10);
+    std::cout << "---" << std::endl;
+    PostorderTreeWalk(&n10);
+
     return 0;
 }
