@@ -26,5 +26,7 @@ int main()
     n16.SetRelation(&n15, nullptr, nullptr);
     //test functions
     InorderTreeWalkNonRecursive(&n10);
+    std::cout << "---" << std::endl;
+    InorderTreeWalkNonRecursiveNonStack(&n10);
     return 0;
 }

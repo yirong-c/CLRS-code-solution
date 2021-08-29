@@ -37,6 +37,7 @@ void InorderTreeWalk(BinaryTreeNode<T1, T2>* x)
 }
 
 //12.1-3
+//space complexity: O(n)
 template <typename T1, typename T2>
 void InorderTreeWalkNonRecursive(BinaryTreeNode<T1, T2>* x)
 {
@@ -56,5 +57,33 @@ void InorderTreeWalkNonRecursive(BinaryTreeNode<T1, T2>* x)
         std::cout << x->key << std::endl;
         stack.pop();
         x = x->right;
+    }
+}
+
+//12.1-3
+//space complexity: O(1)
+template <typename T1, typename T2>
+void InorderTreeWalkNonRecursiveNonStack(BinaryTreeNode<T1, T2>* x)
+{
+    BinaryTreeNode<T1, T2>* last;
+    goto Start;
+    while (x->parent)
+    {
+        last = x;
+        x = x->parent;
+        if (last == x->left)
+        {
+            std::cout << x->key << std::endl;
+            while (x->right)
+            {
+                x = x->right;
+                Start:
+                while (x->left)
+                {
+                    x = x->left;
+                }
+                std::cout << x->key << std::endl;
+            }
+        }
     }
 }
