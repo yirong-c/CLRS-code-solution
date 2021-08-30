@@ -46,5 +46,8 @@ int main()
     std::cout << "TreeSuccessor(&n11)->key: " << TreeSuccessor(&n11)->key << std::endl;
     std::cout << "TreeSuccessor(&n16) == nullptr: " << (TreeSuccessor(&n16) == nullptr) << std::endl;
 
+    std::cout << "TreeMinimumRecursive(&n10)->key: " << TreeMinimumRecursive(&n10)->key << std::endl;
+    std::cout << "TreeMaximumRecursive(&n10)->key: " << TreeMaximumRecursive(&n10)->key << std::endl;
+
     return 0;
 }

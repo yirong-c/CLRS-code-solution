@@ -184,4 +184,26 @@ BinaryTreeNode<T1, T2>* TreeSuccessor(BinaryTreeNode<T1, T2>* node)
     return parent;
 }
 
+//12.2-2
+//O(h)
+//root_node cannot be nullptr
+template <typename T1, typename T2>
+BinaryTreeNode<T1, T2>* TreeMinimumRecursive(BinaryTreeNode<T1, T2>* root_node)
+{
+    if (root_node->left)
+        return TreeMinimumRecursive(root_node->left);
+    else
+        return root_node;
+}
 
+//12.2-2
+//O(h)
+//root_node cannot be nullptr
+template <typename T1, typename T2>
+BinaryTreeNode<T1, T2>* TreeMaximumRecursive(BinaryTreeNode<T1, T2>* root_node)
+{
+    if (root_node->right)
+        return TreeMaximumRecursive(root_node->right);
+    else
+        return root_node;
+}
