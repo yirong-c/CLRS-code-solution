@@ -49,5 +49,13 @@ int main()
     std::cout << "TreeMinimumRecursive(&n10)->key: " << TreeMinimumRecursive(&n10)->key << std::endl;
     std::cout << "TreeMaximumRecursive(&n10)->key: " << TreeMaximumRecursive(&n10)->key << std::endl;
 
+    std::cout << "TreePredecessor(&n1) == nullptr: " << (TreePredecessor(&n1) == nullptr) << std::endl;
+    std::cout << "TreePredecessor(&n2)->key: " << TreePredecessor(&n2)->key << std::endl;
+    std::cout << "TreePredecessor(&n4)->key: " << TreePredecessor(&n4)->key << std::endl;
+    std::cout << "TreePredecessor(&n7)->key: " << TreePredecessor(&n7)->key << std::endl;
+    std::cout << "TreePredecessor(&n10)->key: " << TreePredecessor(&n10)->key << std::endl;
+    std::cout << "TreePredecessor(&n11)->key: " << TreePredecessor(&n11)->key << std::endl;
+    std::cout << "TreePredecessor(&n16)->key: " << TreePredecessor(&n16)->key << std::endl;
+
     return 0;
 }

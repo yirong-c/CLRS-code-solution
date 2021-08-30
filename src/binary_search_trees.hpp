@@ -207,3 +207,21 @@ BinaryTreeNode<T1, T2>* TreeMaximumRecursive(BinaryTreeNode<T1, T2>* root_node)
     else
         return root_node;
 }
+
+//12.2-3
+//O(h)
+//node cannot be nullptr
+template <typename T1, typename T2>
+BinaryTreeNode<T1, T2>* TreePredecessor(BinaryTreeNode<T1, T2>* node)
+{
+    BinaryTreeNode<T1, T2>* parent;
+    if (node->left)
+        return TreeMaximum(node->left);
+    parent = node->parent;
+    while (parent && parent->left == node)
+    {
+        node = parent;
+        parent = node->parent;
+    }
+    return parent;
+}
