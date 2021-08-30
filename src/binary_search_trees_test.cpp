@@ -36,5 +36,15 @@ int main()
     std::cout << "---" << std::endl;
     PostorderTreeWalk(&n10);
 
+    std::cout << "---" << std::endl;
+
+    std::cout << "TreeMinimum(&n10)->key: " << TreeMinimum(&n10)->key << std::endl;
+    std::cout << "TreeMaximum(&n10)->key: " << TreeMaximum(&n10)->key << std::endl;
+
+    std::cout << "TreeSuccessor(&n4)->key: " << TreeSuccessor(&n4)->key << std::endl;
+    std::cout << "TreeSuccessor(&n10)->key: " << TreeSuccessor(&n10)->key << std::endl;
+    std::cout << "TreeSuccessor(&n11)->key: " << TreeSuccessor(&n11)->key << std::endl;
+    std::cout << "TreeSuccessor(&n16) == nullptr: " << (TreeSuccessor(&n16) == nullptr) << std::endl;
+
     return 0;
 }

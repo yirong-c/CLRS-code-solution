@@ -25,6 +25,7 @@ struct BinaryTreeNode
     }
 };
 
+//O(n)
 template <typename T1, typename T2>
 void InorderTreeWalk(BinaryTreeNode<T1, T2>* x)
 {
@@ -37,6 +38,7 @@ void InorderTreeWalk(BinaryTreeNode<T1, T2>* x)
 }
 
 //12.1-3
+//O(n)
 //space complexity: O(n)
 template <typename T1, typename T2>
 void InorderTreeWalkNonRecursive(BinaryTreeNode<T1, T2>* x)
@@ -61,6 +63,7 @@ void InorderTreeWalkNonRecursive(BinaryTreeNode<T1, T2>* x)
 }
 
 //12.1-3
+//O(n)
 //space complexity: O(1)
 template <typename T1, typename T2>
 void InorderTreeWalkNonRecursiveNonStack(BinaryTreeNode<T1, T2>* x)
@@ -89,6 +92,7 @@ void InorderTreeWalkNonRecursiveNonStack(BinaryTreeNode<T1, T2>* x)
 }
 
 //12.1-4
+//O(n)
 template <typename T1, typename T2>
 void PreorderTreeWalk(BinaryTreeNode<T1, T2>* x)
 {
@@ -101,6 +105,7 @@ void PreorderTreeWalk(BinaryTreeNode<T1, T2>* x)
 }
 
 //12.1-4
+//O(n)
 template <typename T1, typename T2>
 void PostorderTreeWalk(BinaryTreeNode<T1, T2>* x)
 {
@@ -111,3 +116,72 @@ void PostorderTreeWalk(BinaryTreeNode<T1, T2>* x)
         std::cout << x->key << std::endl;
     }
 }
+
+//O(h)
+//h: height (h >= lgn)
+//space complexity: O(h)
+template <typename T1, typename T2>
+BinaryTreeNode<T1, T2>* TreeSearch(BinaryTreeNode<T1, T2>* root_node, T2 key)
+{
+    if (root_node == nullptr || root_node->key == key)
+        return root_node;
+    if (key < root_node->key)
+        return TreeSearch(root_node->left, key);
+    else
+        return TreeSearch(root_node->right, key);
+}
+
+//O(h)
+//h: height (h >= lgn)
+//space complexity: O(1)
+template <typename T1, typename T2>
+BinaryTreeNode<T1, T2>* IterativeTreeSearch(BinaryTreeNode<T1, T2>* root_node, T2 key)
+{
+    while (root_node != nullptr && root_node->key != key)
+    {
+        if (key < root_node->key)
+            root_node = root_node->left;
+        else
+            root_node = root_node->right;
+    }    
+    return root_node;
+}
+
+//O(h)
+//root_node cannot be nullptr
+template <typename T1, typename T2>
+BinaryTreeNode<T1, T2>* TreeMinimum(BinaryTreeNode<T1, T2>* root_node)
+{
+    while (root_node->left)
+        root_node = root_node->left;
+    return root_node;
+}
+
+//O(h)
+//root_node cannot be nullptr
+template <typename T1, typename T2>
+BinaryTreeNode<T1, T2>* TreeMaximum(BinaryTreeNode<T1, T2>* root_node)
+{
+    while (root_node->right)
+        root_node = root_node->right;
+    return root_node;
+}
+
+//O(h)
+//node cannot be nullptr
+template <typename T1, typename T2>
+BinaryTreeNode<T1, T2>* TreeSuccessor(BinaryTreeNode<T1, T2>* node)
+{
+    BinaryTreeNode<T1, T2>* parent;
+    if (node->right != nullptr)
+        return TreeMinimum(node->right);
+    parent = node->parent;
+    while (parent != nullptr && parent->right == node)
+    {
+        node = parent;
+        parent = node->parent;
+    }
+    return parent;
+}
+
+
