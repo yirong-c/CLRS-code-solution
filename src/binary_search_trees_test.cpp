@@ -60,7 +60,7 @@ int main()
     std::cout << "TreePredecessor(&n11)->key: " << bst.TreePredecessor(&n11)->key << std::endl;
     std::cout << "TreePredecessor(&n16)->key: " << bst.TreePredecessor(&n16)->key << std::endl;
 
-    bst.TreeInsert(&n7);
+    bst.TreeInsertRecursive(&n7);
 
     bst.TreeDelete(&n12);
     bst.TreeDelete(&n3);

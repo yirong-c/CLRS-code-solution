@@ -327,5 +327,64 @@ public:
         }
     }
 
+    //12.3-1
+    //O(h)
+    void TreeInsertRecursive(BinaryTreeNode<T1, T2>* root_node, BinaryTreeNode<T1, T2>* to_insert)
+    {
+        //hardcore version
+        BinaryTreeNode<T1, T2>** next_ptr;
+        if (to_insert->key < root_node->key)
+            next_ptr = &root_node->left;
+        else
+            next_ptr = &root_node->right;
+        if (*next_ptr == nullptr)
+        {
+            *next_ptr = to_insert;
+            to_insert->parent = root_node;
+            return;
+        }
+        TreeInsertRecursive(*next_ptr, to_insert);
+        /*
+        //normal version
+        if (to_insert->key < root_node->key)
+        {
+            if (root_node->left)
+            {
+                TreeInsertRecursive(root_node->left, to_insert);
+            }
+            else
+            {
+                root_node->left = to_insert;
+                to_insert->parent = root_node;
+            }
+        }
+        else
+        {
+            if (root_node->right)
+            {
+                TreeInsertRecursive(root_node->right, to_insert);
+            }
+            else
+            {
+                root_node->right = to_insert;
+                to_insert->parent = root_node;
+            }
+        }
+        */
+    }
+
+    //12.3-1
+    //O(h)
+    void TreeInsertRecursive(BinaryTreeNode<T1, T2>* to_insert)
+    {
+        if (root_node_ == nullptr)
+            root_node_ = to_insert;
+        else
+            TreeInsertRecursive(root_node_, to_insert);
+    }
+
+
+
 };
+
 
