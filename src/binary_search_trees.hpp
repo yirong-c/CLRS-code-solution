@@ -261,7 +261,28 @@ public:
     //O(h)
     void TreeInsert(BinaryTreeNode<T1, T2>* to_insert)
     {
-        BinaryTreeNode<T1, T2>* now;
+        //hardcore version
+        BinaryTreeNode<T1, T2>** now_ptr;
+        if (root_node_ == nullptr)
+        {
+            root_node_ = to_insert;
+        }
+        else
+        {
+            now_ptr = &root_node_;
+            while (*now_ptr)
+            {
+                to_insert->parent = *now_ptr;
+                if (to_insert->key < (*now_ptr)->key)
+                    now_ptr = &((*now_ptr)->left);
+                else
+                    now_ptr = &((*now_ptr)->right);
+            }
+            *now_ptr = to_insert;
+        }
+        /*
+        //normal version
+                BinaryTreeNode<T1, T2>* now;
         if (root_node_ == nullptr)
         {
             root_node_ = to_insert;
@@ -282,6 +303,7 @@ public:
             else
                 to_insert->parent->right = to_insert;
         }
+        */
     }
 
     //replace subtree rooted at node u with subtree rooted at node v
