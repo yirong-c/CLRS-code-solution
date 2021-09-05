@@ -14,15 +14,15 @@ int main()
     n4.SetRelation(&n3, nullptr, nullptr);
     n5.SetRelation(&n10, &n1, &n6);
     n6.SetRelation(&n5, nullptr, &n9);
-    n7.SetRelation(&n8, nullptr, nullptr);
-    n8.SetRelation(&n9, &n7, nullptr);
+    n7.SetRelation(nullptr, nullptr, nullptr);
+    n8.SetRelation(&n9, /*&n7*/nullptr, nullptr);
     n9.SetRelation(&n6, &n8, nullptr);
-    n10.SetRelation(nullptr, &n5, &n14);
-    n11.SetRelation(&n13, nullptr, &n12);
-    n12.SetRelation(&n11, nullptr, nullptr);
-    n13.SetRelation(&n14, &n11, nullptr);
-    n14.SetRelation(&n10, &n13, &n15);
-    n15.SetRelation(&n14, nullptr, &n16);
+    n10.SetRelation(nullptr, &n5, &n12);
+    n11.SetRelation(&n12, nullptr, nullptr);
+    n12.SetRelation(&n10, &n11, &n15);
+    n13.SetRelation(&n15, nullptr, &n14);
+    n14.SetRelation(&n13, nullptr, nullptr);
+    n15.SetRelation(&n12, &n13, &n16);
     n16.SetRelation(&n15, nullptr, nullptr);
 
     //test functions
@@ -52,10 +52,16 @@ int main()
     std::cout << "TreePredecessor(&n1) == nullptr: " << (TreePredecessor(&n1) == nullptr) << std::endl;
     std::cout << "TreePredecessor(&n2)->key: " << TreePredecessor(&n2)->key << std::endl;
     std::cout << "TreePredecessor(&n4)->key: " << TreePredecessor(&n4)->key << std::endl;
-    std::cout << "TreePredecessor(&n7)->key: " << TreePredecessor(&n7)->key << std::endl;
+    //std::cout << "TreePredecessor(&n7)->key: " << TreePredecessor(&n7)->key << std::endl;
     std::cout << "TreePredecessor(&n10)->key: " << TreePredecessor(&n10)->key << std::endl;
     std::cout << "TreePredecessor(&n11)->key: " << TreePredecessor(&n11)->key << std::endl;
     std::cout << "TreePredecessor(&n16)->key: " << TreePredecessor(&n16)->key << std::endl;
 
+    TreeInsert(&n10, &n7);
+
+    TreeDelete(&n12);
+    TreeDelete(&n3);
+    //TreeDelete(&n10);
+    InorderTreeWalkNonRecursiveNonStack(&n10);
     return 0;
 }

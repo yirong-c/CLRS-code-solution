@@ -225,3 +225,67 @@ BinaryTreeNode<T1, T2>* TreePredecessor(BinaryTreeNode<T1, T2>* node)
     }
     return parent;
 }
+
+//O(h)
+//root_node cannot be nullptr
+template<typename T1, typename T2>
+void TreeInsert(BinaryTreeNode<T1, T2>* root_node, BinaryTreeNode<T1, T2>* to_insert)
+{
+    //treat root_node as "now_node"
+    while (root_node != nullptr)
+    {
+        to_insert->parent = root_node;
+        if (to_insert->key < root_node->key)
+            root_node = root_node->left;
+        else
+            root_node = root_node->right;
+    }
+    if (to_insert->key < to_insert->parent->key)
+        to_insert->parent->left = to_insert;
+    else
+        to_insert->parent->right = to_insert;
+}
+
+//replace subtree rooted at node u with subtree rooted at node v
+//u and u->parent cannot be nullptr
+template <typename T1, typename T2>
+void Transplant(BinaryTreeNode<T1, T2>* u, BinaryTreeNode<T1, T2>* v)
+{
+    if (u == u->parent->left)
+        u->parent->left = v;
+    else
+        u->parent->right = v;
+    if (v != nullptr)
+        v->parent = u->parent;
+    //u->parent = nullptr;
+}
+
+//O(h)
+//to_delete cannot be nullptr
+template <typename T1, typename T2>
+void TreeDelete(BinaryTreeNode<T1, T2>* to_delete)
+{
+    BinaryTreeNode<T1, T2>* will_replace;
+    if (to_delete->left == nullptr)
+    {
+        Transplant(to_delete, to_delete->right);
+    }
+    else if (to_delete->right == nullptr)
+    {
+        Transplant(to_delete, to_delete->left);
+    }
+    else
+    {
+        will_replace = TreeMinimum(to_delete->right);
+        if (will_replace->parent != to_delete)
+        {
+            Transplant(will_replace, will_replace->right);
+            will_replace->right = to_delete->right;
+            will_replace->right->parent = will_replace;
+        }
+        Transplant(to_delete, will_replace);
+        will_replace->left = to_delete->left;
+        will_replace->left->parent = will_replace;
+    }
+}
+
