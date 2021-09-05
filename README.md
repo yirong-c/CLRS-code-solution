@@ -8,9 +8,9 @@ ubuntu 5.8.0
 
 ## Completed Part
 
-Chapter 2 - 10
+Chapter 2 - 11
 
-Chapter 11 is updating
+Chapter 12 is updating
 
 ## Contact
 
