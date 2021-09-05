@@ -13,6 +13,9 @@ struct BinaryTreeNode
     BinaryTreeNode(T2 key)
     {
         this->key = key;
+        this->parent = nullptr;
+        this->left = nullptr;
+        this->right = nullptr;
     }
 
     void SetRelation(BinaryTreeNode<T1, T2>* parent,
