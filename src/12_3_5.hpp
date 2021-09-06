@@ -104,7 +104,7 @@ public:
         }
     }
 
-    //O(n)
+    //O(h)
     BinaryTreeNode<T1, T2>* GetParent(const BinaryTreeNode<T1, T2>* node, BinaryTreeNode<T1, T2>* root_node)
     {
         BinaryTreeNode<T1, T2>* parent;
@@ -120,7 +120,7 @@ public:
         return parent;
     }
 
-    //O(n)
+    //O(h)
     void GetParentAndPred(BinaryTreeNode<T1, T2>* node, BinaryTreeNode<T1, T2>* root_node, 
         BinaryTreeNode<T1, T2>** parent_ptr, BinaryTreeNode<T1, T2>** pred_ptr)
     {
@@ -145,7 +145,7 @@ public:
     //replace subtree rooted at node u with subtree rooted at node v
     //u will be removed from u_pred->succ
     //u cannot be nullptr
-    //O(n)
+    //O(h)
     void Transplant(BinaryTreeNode<T1, T2>* u, BinaryTreeNode<T1, T2>* v)
     {
         BinaryTreeNode<T1, T2> *u_parent, *u_pred;
