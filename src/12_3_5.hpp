@@ -105,23 +105,37 @@ public:
     }
 
     //O(n)
-    void GetParentAndPred(const BinaryTreeNode<T1, T2>* node, 
+    BinaryTreeNode<T1, T2>* GetParent(const BinaryTreeNode<T1, T2>* node, BinaryTreeNode<T1, T2>* root_node)
+    {
+        BinaryTreeNode<T1, T2>* parent;
+        parent = nullptr;
+        while (root_node != node)
+        {
+            parent = root_node;
+            if (node->key < root_node->key)
+                root_node = root_node->left;
+            else
+                root_node = root_node->right;
+        }
+        return parent;
+    }
+
+    //O(n)
+    void GetParentAndPred(BinaryTreeNode<T1, T2>* node, BinaryTreeNode<T1, T2>* root_node, 
         BinaryTreeNode<T1, T2>** parent_ptr, BinaryTreeNode<T1, T2>** pred_ptr)
     {
-        BinaryTreeNode<T1, T2>* now;
-        now = root_node_;
         *pred_ptr = *parent_ptr = nullptr;
-        while (now != node)
+        while (root_node != node)
         {
-            *parent_ptr = now;
-            if (node->key < now->key)
+            *parent_ptr = root_node;
+            if (node->key < root_node->key)
             {
-                now = now->left;
+                root_node = root_node->left;
             }
             else
             {
-                *pred_ptr = now;
-                now = now->right;
+                *pred_ptr = root_node;
+                root_node = root_node->right;
             }
         }
         if (node->left)
@@ -129,13 +143,13 @@ public:
     }
 
     //replace subtree rooted at node u with subtree rooted at node v
-    //DO remove u from u_pred->succ
+    //u will be removed from u_pred->succ
     //u cannot be nullptr
     //O(n)
-    void TransplantRemoveU(BinaryTreeNode<T1, T2>* u, BinaryTreeNode<T1, T2>* v)
+    void Transplant(BinaryTreeNode<T1, T2>* u, BinaryTreeNode<T1, T2>* v)
     {
         BinaryTreeNode<T1, T2> *u_parent, *u_pred;
-        GetParentAndPred(u, &u_parent, &u_pred);
+        GetParentAndPred(u, root_node_, &u_parent, &u_pred);
         if (u_parent == nullptr)
             root_node_ = v;
         else if (u == u_parent->left)
@@ -146,45 +160,53 @@ public:
             u_pred->succ = u->succ;
     }
 
-    //replace subtree rooted at node u with subtree rooted at node v
-    //do NOT remove u from u_pred->succ
-    //u cannot be nullptr
-    //O(n)
-    void TransplantNotRemoveU(BinaryTreeNode<T1, T2>* u, BinaryTreeNode<T1, T2>* v)
-    {
-        BinaryTreeNode<T1, T2> *u_parent, *u_pred;
-        GetParentAndPred(u, &u_parent, &u_pred);
-        if (u_parent == nullptr)
-            root_node_ = v;
-        else if (u == u_parent->left)
-            u_parent->left = v;
-        else
-            u_parent->right = v;
-    }
-
     //O(h)
     //to_delete cannot be nullptr
     void TreeDelete(BinaryTreeNode<T1, T2>* to_delete)
     {
-        BinaryTreeNode<T1, T2>* will_replace;
+        BinaryTreeNode<T1, T2> *will_replace, *will_replace_2, 
+            *to_delete_parent, *to_delete_pred, *will_replace_parent;
         if (to_delete->left == nullptr)
         {
-            TransplantRemoveU(to_delete, to_delete->right);
+            //replace to_delete with to_delete->right
+            Transplant(to_delete, to_delete->right);
         }
         else if (to_delete->right == nullptr)
         {
-            TransplantRemoveU(to_delete, to_delete->left);
+            //replace to_delete with to_delete->left
+            Transplant(to_delete, to_delete->left);
         }
         else
         {
-            will_replace = to_delete->succ;
+            will_replace = to_delete->succ;//pred of will_replace is to_delete
             if (will_replace != to_delete->right)
             {
-                TransplantNotRemoveU(will_replace, will_replace->right);
+                //replace will_replace with will_replace_2
+                //then replace to_delete with will_replace
+                will_replace_2 = will_replace->right;
+                GetParentAndPred(to_delete, root_node_, &to_delete_parent, &to_delete_pred);
+                will_replace_parent = GetParent(will_replace, to_delete);
+                if (to_delete_parent == nullptr)
+                    root_node_ = will_replace;
+                else if (to_delete == to_delete_parent->left)
+                    to_delete_parent->left = will_replace;
+                else
+                    to_delete_parent->right = will_replace;
+                if (will_replace == will_replace_parent->left)
+                    will_replace_parent->left = will_replace_2;
+                else
+                    will_replace_parent->right = will_replace_2;
+                if (to_delete_pred != nullptr)
+                    to_delete_pred->succ = to_delete->succ;
+                will_replace->left = to_delete->left;
                 will_replace->right = to_delete->right;
             }
-            TransplantRemoveU(to_delete, will_replace);
-            will_replace->left = to_delete->left;
+            else
+            {
+                //replace to_delete with will_replace
+                Transplant(to_delete, will_replace);
+                will_replace->left = to_delete->left;
+            }
         }
     }
 
@@ -203,6 +225,18 @@ public:
     void InorderTreeWalkRecursive()
     {
         InorderTreeWalkRecursive(root_node_);
+    }
+
+    //O(n)
+    void InorderTreeWalkNonRecursive()
+    {
+        BinaryTreeNode<T1, T2>* now;
+        now = TreeMinimum(root_node_);
+        while (now)
+        {
+            std::cout << now->key << std::endl;
+            now = now->succ;
+        }
     }
 
 };
