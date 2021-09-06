@@ -310,7 +310,7 @@ public:
     }
 
     //replace subtree rooted at node u with subtree rooted at node v
-    //u and u->parent cannot be nullptr
+    //u cannot be nullptr
     void Transplant(BinaryTreeNode<T1, T2>* u, BinaryTreeNode<T1, T2>* v)
     {
         if (u->parent == nullptr)
