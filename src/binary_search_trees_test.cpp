@@ -62,9 +62,9 @@ int main()
 
     bst.TreeInsert(&n7);
 
-    bst.TreeDelete(&n12);
-    bst.TreeDelete(&n3);
-    bst.TreeDelete(&n10);
+    bst.TreeDeleteReplaceWithRandomSuccPred(&n12);
+    bst.TreeDeleteReplaceWithRandomSuccPred(&n3);
+    bst.TreeDeleteReplaceWithRandomSuccPred(&n10);
     bst.InorderTreeWalkNonRecursiveNonStack();
 
     return 0;

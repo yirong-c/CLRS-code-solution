@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stack>
+#include "stdafx.h"
 
 template <typename T1, typename T2>
 struct BinaryTreeNode
@@ -326,7 +327,7 @@ public:
 
     //O(h)
     //to_delete cannot be nullptr
-    void TreeDelete(BinaryTreeNode<T1, T2>* to_delete)
+    void TreeDeleteReplaceWithSucc(BinaryTreeNode<T1, T2>* to_delete)
     {
         BinaryTreeNode<T1, T2>* will_replace;
         if (to_delete->left == nullptr)
@@ -350,6 +351,46 @@ public:
             will_replace->left = to_delete->left;
             will_replace->left->parent = will_replace;
         }
+    }
+
+    //12.3-6
+    //O(h)
+    //to_delete cannot be nullptr
+    void TreeDeleteReplaceWithPred(BinaryTreeNode<T1, T2>* to_delete)
+    {
+        BinaryTreeNode<T1, T2>* will_replace;
+        if (to_delete->left == nullptr)
+        {
+            Transplant(to_delete, to_delete->right);
+        }
+        else if (to_delete->right == nullptr)
+        {
+            Transplant(to_delete, to_delete->left);
+        }
+        else
+        {
+            will_replace = TreeMaximum(to_delete->left);
+            if (will_replace->parent != to_delete)
+            {
+                Transplant(will_replace, will_replace->left);
+                will_replace->left = to_delete->left;
+                will_replace->left->parent = will_replace;
+            }
+            Transplant(to_delete, will_replace);
+            will_replace->right = to_delete->right;
+            will_replace->right->parent = will_replace;
+        }
+    }
+
+    //12.3-6
+    //O(h)
+    //to_delete cannot be nullptr
+    void TreeDeleteReplaceWithRandomSuccPred(BinaryTreeNode<T1, T2>* to_delete)
+    {
+        if (GetRangedRandomNum(0, 1))
+            TreeDeleteReplaceWithPred(to_delete);
+        else
+            TreeDeleteReplaceWithSucc(to_delete);
     }
 
     //12.3-1
