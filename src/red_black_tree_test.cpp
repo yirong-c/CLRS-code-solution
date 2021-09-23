@@ -1,14 +1,15 @@
-#include "red_black_tree.hpp"
+#include "red_black_tree_test.hpp"
 
-template <class Key, class T>
-bool CheckRedBlackTree(const RedBlackTree<Key, T>& tree)
-{
-    
-}
+#ifndef CATCH_CONFIG_MAIN
+#  define CATCH_CONFIG_MAIN
+#endif
+#include <catch/catch.hpp>
 
-int main()
+TEST_CASE("Rotate", "[rotate]")
 {
-    RedBlackTree<int, char> tree;
+    typedef RedBlackTreeTest<int, char> Tree;
+    Tree tree;
+    bool result;
 
     // temp build test tree for rotate
 
@@ -16,17 +17,49 @@ int main()
         n6({6, 'a'}), n7({7, 'a'});
     
     tree.root_ = &n4;
+    tree.SetNodeRelation(&n1, &n2, tree.nil_, tree.nil_);
+    tree.SetNodeRelation(&n2, &n4, &n1, &n3);
+    tree.SetNodeRelation(&n3, &n2, tree.nil_, tree.nil_);
+    tree.SetNodeRelation(&n4, tree.nil_, &n2, &n6);
+    tree.SetNodeRelation(&n5, &n6, tree.nil_, tree.nil_);
+    tree.SetNodeRelation(&n6, &n4, &n5, &n7);
+    tree.SetNodeRelation(&n7, &n6, tree.nil_, tree.nil_);
 
-    n1.SetRelation(&n2, tree.nil_, tree.nil_);
-    n2.SetRelation(&n4, &n1, &n3);
-    n3.SetRelation(&n2, tree.nil_, tree.nil_);
-    n4.SetRelation(tree.nil_, &n2, &n6);
-    n5.SetRelation(&n6, tree.nil_, tree.nil_);
-    n6.SetRelation(&n4, &n5, &n7);
-    n7.SetRelation(&n6, tree.nil_, tree.nil_);
+    result = tree.CheckTreeValid();
+    std::cout << "BuildTree-CheckTreeValid: " << (result ? "tree" : "false") << std::endl;
+    REQUIRE(result);
+    REQUIRE(tree.root_ == &n4);
 
+    // 1
     tree.LeftRotate(&n4);
 
+    result = tree.CheckTreeValid();
+    std::cout << "LeftRotate-CheckTreeValid: " << (result ? "tree" : "false") << std::endl;
+    REQUIRE(result);
+    REQUIRE(tree.root_ == &n6);
 
-    return 0;
+    // 2
+    tree.RightRotate(&n6);
+
+    result = tree.CheckTreeValid();
+    std::cout << "RightRotate-CheckTreeValid: " << (result ? "tree" : "false") << std::endl;
+    REQUIRE(result);
+    REQUIRE(tree.root_ == &n4);
+
+    // 3
+    tree.LeftRotate(&n2);
+
+    result = tree.CheckTreeValid();
+    std::cout << "LeftRotate-CheckTreeValid: " << (result ? "tree" : "false") << std::endl;
+    REQUIRE(result);
+    REQUIRE(tree.root_ == &n4);
+    
+    // 4
+    tree.RightRotate(&n6);
+
+    result = tree.CheckTreeValid();
+    std::cout << "RightRotate-CheckTreeValid: " << (result ? "tree" : "false") << std::endl;
+    REQUIRE(result);
+    REQUIRE(tree.root_ == &n4);
+
 }
