@@ -6,6 +6,8 @@ Include code implemention and solution of "Introduction to Algorithms" (CLRS) 3r
 
 Ubuntu 20.04.1 LTS
 
+2021/9/23: start to use "clang++-10" and "-std=c++20" 
+
 ## Completed Part
 
 Chapter 2 - 12

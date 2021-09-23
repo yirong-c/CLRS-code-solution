@@ -3,16 +3,15 @@
 {
     "tasks": [
         {
-            //编译源文件
             "type": "shell",
-            "label": "g++ build active file",
+            "label": "g++ (c++11) build active file",
             "command": "/usr/bin/g++",
             "args": [
-                "-std=c++11",    //C++版本， 可不加
+                "-std=c++11",
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}/../bin/${fileBasenameNoExtension}"
+                "${workspaceFolder}/bin/${fileBasenameNoExtension}"
             ],
             "options": {
                 "cwd": "/usr/bin"
@@ -25,15 +24,37 @@
                 "isDefault": true
             }
         },
-        {   //删除二进制文件
+        {
+            "type": "shell",
+            "label": "clang++-10 (c++20) build active file",
+            "command": "/usr/bin/clang++-10",
+            "args": [
+                "-std=c++20",
+                "-g",
+                "${file}",
+                "-o",
+                "${workspaceFolder}/bin/${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
             "type": "shell",
             "label": "delete output file",
             "command": "rm",
             "args": [
-                "${fileDirname}/../bin/${fileBasenameNoExtension}"
+                "${workspaceFolder}/bin/${fileBasenameNoExtension}"
             ],
             "presentation": {
-                "reveal": "silent", //删除过程不切换终端（专注程序输出）
+                "reveal": "silent",
             }
         }
     ],
