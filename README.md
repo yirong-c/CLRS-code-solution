@@ -4,7 +4,7 @@ Include code implemention and solution of "Introduction to Algorithms" (CLRS) 3r
 
 ## Enviroment
 
-ubuntu 5.8.0
+Ubuntu 20.04.1 LTS
 
 ## Completed Part
 
