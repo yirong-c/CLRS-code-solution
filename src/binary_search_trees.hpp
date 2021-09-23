@@ -1,3 +1,6 @@
+#ifndef _BINARY_SEARCH_TREES_HPP
+#define _BINARY_SEARCH_TREES_HPP
+
 #include <iostream>
 #include <stack>
 #include "stdafx.h"
@@ -453,4 +456,4 @@ public:
 
 };
 
-
+#endif
