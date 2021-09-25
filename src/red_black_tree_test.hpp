@@ -13,13 +13,6 @@ class RedBlackTreeTest : public RedBlackTree<Key, T>
 public:
     typedef typename RedBlackTree<Key, T>::Node RbtNode;
 
-    void SetNodeRelation(RbtNode* const node, RbtNode* parent, RbtNode* left, RbtNode* right)
-    {
-        node->parent = parent;
-        node->left = left;
-        node->right = right;
-    }
-
     RbtNode* TreeMinimum(RbtNode* sub_tree_root)
     {
         while (sub_tree_root->left != this->nil_)

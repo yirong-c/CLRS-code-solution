@@ -12,7 +12,9 @@ class RedBlackTree
 public:
     typedef std::pair<const Key, T> ValueType;
 
-#ifndef RBT_TESTING
+#ifdef RBT_TESTING
+protected:
+#else
 private:
 #endif
     struct Node
@@ -29,36 +31,46 @@ private:
     };
 
 public:
+    class Iterator : public std::iterator<std::bidirectional_iterator_tag, ValueType>
+    {
+    public:
+        Iterator& operator++();
+        Iterator& operator--();
+        ValueType& operator*() const;
+        ValueType& operator->() const;
+        bool operator==(const Iterator& other) const;
+        bool operator!=(const Iterator& other) const;
+    private:
+        friend class RedBlackTree<Key, T>;
+        Iterator(Node* const node);
+        Node* const node_;
+    };
+
     RedBlackTree();
     ~RedBlackTree();
-
-#ifndef RBT_TESTING
+    Iterator Insert(const ValueType& value);
+    
+#ifdef RBT_TESTING
+protected:
+#else
 private:
 #endif
     void LeftRotate(Node* subtree_root_node);
     void RightRotate(Node* subtree_root_node);
+    void InsertFixup(Node* node);
 
     Node* root_;
     Node* nil_;
 
-public:
-    class Iterator : public std::iterator<std::bidirectional_iterator_tag, ValueType>
-    {
-    public:
-        Iterator(ValueType* iter_init);
-        Iterator& operator++();
-        ValueType& operator*() const;
-        bool operator==(const Iterator& other) const;
-        bool operator!=(const Iterator& other) const;
-    private:
-        ValueType* iter_;
-    };
 };
 
 // ---------- definition ----------
 
 template <class Key, class T>
 RedBlackTree<Key, T>::Node::Node(const ValueType& value) : value(value) {}
+
+template <class Key, class T>
+RedBlackTree<Key, T>::Iterator::Iterator(Node* const node) : node_(node) {}
 
 template <class Key, class T>
 RedBlackTree<Key, T>::RedBlackTree()
@@ -72,6 +84,7 @@ RedBlackTree<Key, T>::RedBlackTree()
 template <class Key, class T>
 RedBlackTree<Key, T>::~RedBlackTree()
 {
+    //TODO: 释放内存
     delete nil_;
 }
 
@@ -114,19 +127,34 @@ void RedBlackTree<Key, T>::RightRotate(Node* subtree_root_node)
     subtree_root_node->parent = new_root;
 }
 
-// template <class Key, class T>
-// RedBlackTree<Key, T>::Iterator::Iterator(ValueType* iter_init) : iter_(iter_init) {}
+template <class Key, class T>
+typename RedBlackTree<Key, T>::Iterator RedBlackTree<Key, T>::Insert(const ValueType& value)
+{
+    Node *node, **now_ptr;
+    node = new Node(value);
+    Iterator it(node);
 
-// template <class Key, class T>
-// RedBlackTree<Key, T>::Iterator& RedBlackTree<Key, T>::Iterator::operator++() {}
+    node->parent = nil_;
+    now_ptr = &root_;
+    while (*now_ptr != nil_)
+    {
+        node->parent = *now_ptr;
+        if (node->value.first < (*now_ptr)->value.first)
+            now_ptr = &((*now_ptr)->left);
+        else
+            now_ptr = &((*now_ptr)->right);
+    }
+    *now_ptr = node;
+    node->right = node->left = nil_;
+    node->color = Node::RED;
+    InsertFixup(node);
+    return it;
+}
 
-// template <class Key, class T>
-// typename RedBlackTree<Key, T>::ValueType& RedBlackTree<Key, T>::Iterator::operator*() const {}
+template <class Key, class T>
+void RedBlackTree<Key, T>::InsertFixup(Node* node)
+{
 
-// template <class Key, class T>
-// bool RedBlackTree<Key, T>::Iterator::operator==(const Iterator& other) const {}
-
-// template <class Key, class T>
-// bool RedBlackTree<Key, T>::Iterator::operator!=(const Iterator& other) const {}
+}
 
 #endif
