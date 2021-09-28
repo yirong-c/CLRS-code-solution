@@ -52,21 +52,43 @@ public:
         return true;
     }
 
+    // return number of black nodes on the simple path from the subtree_root to descendant leaves
+    // return -1 means the RBT is invalid
+    int CheckRBSubtreeValid(const RbtNode* subtree_root)
+    {
+        int black_node_num, left_black_node_num, right_black_node_num;
+        if (subtree_root == this->nil_)
+            return 1;
+        if (subtree_root->color == RbtNode::RED && (subtree_root->left->color != RbtNode::BLACK || subtree_root->right->color != RbtNode::BLACK))
+            return -1;
+        left_black_node_num = CheckRBSubtreeValid(subtree_root->left);
+        right_black_node_num = CheckRBSubtreeValid(subtree_root->right);
+        if (left_black_node_num == -1 || right_black_node_num == -1 || left_black_node_num != right_black_node_num)
+            return -1;
+        return left_black_node_num + ((subtree_root->color == RbtNode::BLACK) ? 1 : 0);
+    }
+
     bool CheckTreeValid()
     {
         RbtNode* now;
         const Key* last_key_ptr;
         last_key_ptr = nullptr;
         now = TreeMinimum(this->root_);
+        if (this->root_->color != RbtNode::BLACK || this->nil_->color != RbtNode::BLACK)
+            return false;
         while (now != this->nil_)
         {
-            if (last_key_ptr && *last_key_ptr > now->value.first)
-                return false;
+            //test node relationship
             if (CheckNodeValid(now) == false)
+                return false;
+            //test BST
+            if (last_key_ptr && *last_key_ptr > now->value.first)
                 return false;
             last_key_ptr = &now->value.first;
             now = TreeSuccessor(now);
         }
+        if (CheckRBSubtreeValid(this->root_) == -1)
+            return false;
         return true;
     }
 
