@@ -24,9 +24,7 @@ private:
         Node* right;
         ValueType value;
         enum { BLACK, RED } color;
-
-        Node() {}
-
+        Node();
         Node(const ValueType& value);
     };
 
@@ -58,13 +56,17 @@ private:
     void LeftRotate(Node* subtree_root_node);
     void RightRotate(Node* subtree_root_node);
     void InsertFixup(Node* node);
-
+    void Transplant(Node* old_node, Node* new_node);
+    
     Node* root_;
     Node* nil_;
 
 };
 
 // ---------- definition ----------
+
+template <class Key, class T>
+RedBlackTree<Key, T>::Node::Node() {}
 
 template <class Key, class T>
 RedBlackTree<Key, T>::Node::Node(const ValueType& value) : value(value) {}
@@ -154,7 +156,44 @@ typename RedBlackTree<Key, T>::Iterator RedBlackTree<Key, T>::Insert(const Value
 template <class Key, class T>
 void RedBlackTree<Key, T>::InsertFixup(Node* node)
 {
-
+    Node *uncle, *grandparent;
+    void(RedBlackTree<Key, T>::*grandparent_rotate)(Node*);
+    while (node->parent->color == Node::RED)
+    {
+        grandparent = node->parent->parent;
+        if (node->parent == grandparent->left)
+        {
+            uncle = grandparent->right;
+            grandparent_rotate = &RedBlackTree<Key, T>::RightRotate;
+        }
+        else
+        {
+            uncle = grandparent->left;
+            grandparent_rotate = &RedBlackTree<Key, T>::LeftRotate;
+        }
+        if (uncle->color == Node::RED)
+        {
+            uncle->color = node->parent->color = Node::BLACK;
+            grandparent->color = Node::RED;
+            node = grandparent;
+        }
+        else
+        {
+            if (node == node->parent->right)
+            {
+                node = node->parent;
+                LeftRotate(node);
+                // notice that varible grandparent do not need to update here,
+                // since it is still the grandparent of varible node
+            }
+            node->parent->color = Node::BLACK;
+            grandparent->color = Node::RED;
+            (this->*grandparent_rotate)(grandparent);
+        }
+    }
+    root_->color = Node::BLACK;
 }
+
+
 
 #endif
