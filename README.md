@@ -28,3 +28,6 @@ The completed algorithms and the problems that require code were all implemented
 
 The non-code-implemented topics cannot be submitted because I wrote them in a notebook.
 
+## Bibliography
+
+Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2009). Introduction to algorithms  (Third edition.). MIT Press.
