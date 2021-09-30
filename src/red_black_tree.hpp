@@ -268,6 +268,7 @@ void RedBlackTree<Key, T>::Delete(Iterator pos)
         // In order to maintain property 5,
         // "replaced_replaced" node has extra black (either "doubly black" or "red-and-black", contributes either 2 or 1)
         DeleteFixup(replaced_replaced);
+    delete old;
 }
 
 template <class Key, class T>
