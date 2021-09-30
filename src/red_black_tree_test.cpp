@@ -7,32 +7,68 @@
 
 typedef RedBlackTreeTest<int, char> Tree;
 
-TEST_CASE("Insert", "[insert]")
+TEST_CASE("rbt", "[rbt]")
 {
     Tree tree;
-    Tree::Iterator it;
-    it = tree.Insert({10, 'a'});
+    std::pair<Tree::Iterator, bool> insert_result, insert_result2;
+    insert_result = tree.Insert({10, 'a'});
+    REQUIRE(insert_result.second);
     tree.Insert({20, 'a'});
     tree.Insert({30, 'a'});
     tree.Insert({40, 'a'});
     REQUIRE(tree.CheckTreeValid());
-    tree.Delete(it);
+    tree.Delete(insert_result.first);
     REQUIRE(tree.CheckTreeValid());
-    tree.Insert({50, 'a'});
-    it = tree.Insert({80, 'a'});
+    tree.Insert({50, 'c'});
+    insert_result = tree.Insert({80, 'a'});
+    REQUIRE(insert_result.second);
     REQUIRE(tree.CheckTreeValid());
-    tree.Delete(it);
+    tree.Delete(insert_result.first);
     REQUIRE(tree.CheckTreeValid());
-    it = tree.Insert({60, 'a'});
+    insert_result = tree.Insert({60, 'a'});
+    REQUIRE(insert_result.second);
+    insert_result2 = tree.Insert({40, 'd'});
+    REQUIRE_FALSE(insert_result2.second);
+    REQUIRE(insert_result2.first->first == 40);
+    REQUIRE(insert_result2.first->second == 'a');
+    insert_result2 = tree.Insert({10, 'd'});
+    REQUIRE(insert_result2.second);
+    REQUIRE(insert_result2.first->first == 10);
+    REQUIRE(insert_result2.first->second == 'd');
     tree.Insert({70, 'a'});
     REQUIRE(tree.CheckTreeValid());
-    tree.Delete(it);
+    tree.Delete(insert_result.first);
     REQUIRE(tree.CheckTreeValid());
-    it = tree.Insert({90, 'a'});
+    insert_result = tree.Insert({90, 'a'});
+    REQUIRE(insert_result.second);
     tree.Insert({100, 'a'});
     REQUIRE(tree.CheckTreeValid());
-    tree.Delete(it);
+    tree.Delete(insert_result.first);
     REQUIRE(tree.CheckTreeValid());
+    
+    REQUIRE(tree.At(50) == 'c');
+    REQUIRE(tree.Find(10) == insert_result2.first);
+    REQUIRE(tree[50] == 'c');
+
+    ++insert_result2.first;
+    REQUIRE(tree.Find(20) == insert_result2.first);
+
+    --insert_result2.first;
+    REQUIRE(tree.Find(10) == insert_result2.first);
+
+    REQUIRE(tree.Find(200) == tree.End());
+    REQUIRE(tree[200] == 0);
+    REQUIRE(tree.Find(200) != tree.End());
+    REQUIRE(tree.Find(200)->first == 200);
+    REQUIRE(tree.Find(200)->second == 0);
+    tree[200] = 'e';
+    REQUIRE(tree[200] == 'e');
+    REQUIRE(tree.Find(200) != tree.End());
+    REQUIRE(tree.Find(200)->first == 200);
+    REQUIRE(tree.Find(200)->second == 'e');
+
+    REQUIRE(tree.Begin()->first == 10);
+    REQUIRE(tree.Begin()->second == 'd');
 
 }
 

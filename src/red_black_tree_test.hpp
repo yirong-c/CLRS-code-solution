@@ -13,20 +13,6 @@ class RedBlackTreeTest : public RedBlackTree<Key, T>
 public:
     typedef typename RedBlackTree<Key, T>::Node RbtNode;
 
-    RbtNode* TreeSuccessor(RbtNode* node)
-    {
-        RbtNode* parent;
-        if (node->right != this->nil_)
-            return this->TreeMinimum(node->right);
-        parent = node->parent;
-        while (parent != this->nil_ && parent->right == node)
-        {
-            node = parent;
-            parent = node->parent;
-        }
-        return parent;
-    }
-
     bool CheckNodeValid(const RbtNode* node)
     {
         // check parent
@@ -75,10 +61,10 @@ public:
             if (CheckNodeValid(now) == false)
                 return false;
             //test BST
-            if (last_key_ptr && *last_key_ptr > now->value.first)
+            if (last_key_ptr && *last_key_ptr >= now->value.first)
                 return false;
             last_key_ptr = &now->value.first;
-            now = TreeSuccessor(now);
+            now = this->TreeSuccessor(now);
         }
         if (CheckRBSubtreeValid(this->root_) == -1)
             return false;

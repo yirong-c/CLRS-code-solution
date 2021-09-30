@@ -45,7 +45,7 @@
                 }
             ],
             "preLaunchTask": "clang++-10 (c++20) build active file",
-            "postDebugTask": "delete output file",
+            //"postDebugTask": "delete output file",
             "miDebuggerPath": "/usr/bin/gdb"
             }
     ]
