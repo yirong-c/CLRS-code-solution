@@ -13,18 +13,11 @@ class RedBlackTreeTest : public RedBlackTree<Key, T>
 public:
     typedef typename RedBlackTree<Key, T>::Node RbtNode;
 
-    RbtNode* TreeMinimum(RbtNode* sub_tree_root)
-    {
-        while (sub_tree_root->left != this->nil_)
-            sub_tree_root = sub_tree_root->left;
-        return sub_tree_root;
-    }
-
     RbtNode* TreeSuccessor(RbtNode* node)
     {
         RbtNode* parent;
         if (node->right != this->nil_)
-            return TreeMinimum(node->right);
+            return this->TreeMinimum(node->right);
         parent = node->parent;
         while (parent != this->nil_ && parent->right == node)
         {
@@ -73,7 +66,7 @@ public:
         RbtNode* now;
         const Key* last_key_ptr;
         last_key_ptr = nullptr;
-        now = TreeMinimum(this->root_);
+        now = this->TreeMinimum(this->root_);
         if (this->root_->color != RbtNode::BLACK || this->nil_->color != RbtNode::BLACK)
             return false;
         while (now != this->nil_)
