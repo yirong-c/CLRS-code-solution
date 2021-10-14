@@ -19,6 +19,7 @@ Node<Key, T>* PersistentTreeInsert
 {
     const Node<Key, T> *now;
     Node<Key, T> *new_root, **copy_next_ptr;
+    new_root = nullptr;
     copy_next_ptr = &new_root;
     now = tree_root;
     while (now != nullptr)

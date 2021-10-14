@@ -1,3 +1,6 @@
 [submodule "src/red-black-tree"]
 	path = src/ch13/red_black_tree
 	url = https://github.com/frc123/red-black-tree.git
+[submodule "src/ch13/persistent-red-black-tree"]
+	path = src/ch13/persistent-red-black-tree
+	url = https://github.com/frc123/persistent-red-black-tree.git
