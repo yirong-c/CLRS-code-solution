@@ -10,9 +10,9 @@ Ubuntu 20.04.1 LTS
 
 ## Completed Part
 
-Chapter 2 - 12
+Chapter 2 - 13
 
-Chapter 13 is updating
+Chapter 14 is updating
 
 ## Contact
 
@@ -26,7 +26,13 @@ QQ: 2093003592
 
 The completed algorithms and the problems that require code were all implemented in C++ and put into this repository.
 
-The non-code-implemented topics cannot be submitted because I wrote them in a notebook.
+----- UPDATE -----
+
+**All solutions** of Chapter 13 have been uploaded to src/ch13/solutions.
+
+Handwriting will be optimized later (change to LaTeX).
+
+Solutions of other chapters will be uploaded later.
 
 ## Bibliography
 
