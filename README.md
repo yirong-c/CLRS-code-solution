@@ -14,6 +14,12 @@ Chapter 2 - 13
 
 Chapter 14 is updating
 
+## Plan
+
+Chapter 1 - 18
+
+Chapter 21 - 25
+
 ## Contact
 
 Blog: https://frc6.com
