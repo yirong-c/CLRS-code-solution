@@ -6,7 +6,7 @@
 #include <vector>
 #include <cmath>
 
-#include "augment_red_black_tree/augment_red_black_tree.hpp"
+#include "augment_red_black_tree/order_statistics_tree/order_statistics_tree.hpp"
 
 // center of cycle is (0,0)
 
@@ -37,7 +37,7 @@ struct Chord
     Endpoint endpoint_b;
 };
 
-typedef AugmentRedBlackTree<Endpoint, int> OSTree;
+typedef OrderStatisticsTree<Endpoint, int> OSTree;
 
 size_t CountIntersections(std::vector<Chord> chords)
 {

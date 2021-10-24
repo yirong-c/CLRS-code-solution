@@ -4,14 +4,14 @@
 #include <catch/catch.hpp>
 #include <vector>
 
-#include "augment_red_black_tree/augment_red_black_tree.hpp"
+#include "augment_red_black_tree/order_statistics_tree/order_statistics_tree.hpp"
 
 template <typename Key>
 size_t CountInversions(std::vector<Key> array)
 {
     size_t inversions, i, rank;
-    AugmentRedBlackTree<Key, int> tree;
-    std::pair<typename AugmentRedBlackTree<Key, int>::Iterator, bool> insert_result;
+    OrderStatisticsTree<Key, int> tree;
+    std::pair<typename OrderStatisticsTree<Key, int>::Iterator, bool> insert_result;
     inversions = 0;
     for (i = 0; i < array.size(); ++i)
     {
