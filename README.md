@@ -10,9 +10,9 @@ Ubuntu 20.04.1 LTS
 
 ## Completed Part
 
-Chapter 2 - 13
+Chapter 2 - 14
 
-Chapter 14 is updating
+Chapter 15 is updating
 
 ## Plan
 
