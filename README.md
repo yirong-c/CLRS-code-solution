@@ -2,6 +2,14 @@
 
 Include code implemention and solution of "Introduction to Algorithms" (CLRS) 3rd edition
 
+## Exercise and Problem Solutions
+
+https://github.com/frc123/CLRS-solution
+
+This repo includes solutions for non-coding questions also.
+(LaTeX and handwriting)
+(The handwriting part will be updated to LaTeX)
+
 ## Enviroment
 
 Ubuntu 20.04.1 LTS
@@ -25,20 +33,6 @@ Chapter 21 - 25
 Blog: https://frc6.com
 
 Email: i@frc6.com
-
-QQ: 2093003592
-
-## Notes
-
-The completed algorithms and the problems that require code were all implemented in C++ and put into this repository.
-
------ UPDATE -----
-
-**All solutions** of Chapter 13 have been uploaded to src/ch13/solutions.
-
-Handwriting will be optimized later (change to LaTeX).
-
-Solutions of other chapters will be uploaded later.
 
 ## Bibliography
 
