@@ -9,7 +9,7 @@ std::list<int> PrintingNeatly(int line_max_char,
     int size, j, k, extra;
     size = (int)(lengths.size());
     /**
-     * min_sum[k + 1] is the minimum extra char of
+     * min_sum[k + 1] is the minimum extra char
      * from the first word to the word which the length is lengths[k]
      */
     std::vector<int> min_sum(size + 1);
