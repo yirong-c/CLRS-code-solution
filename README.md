@@ -30,8 +30,6 @@ Chapter 21 - 25
 
 ## Contact
 
-Blog: https://frc6.com
-
 Email: i@frc6.com
 
 ## Bibliography
