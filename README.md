@@ -1,36 +1,11 @@
 # CLRS-code-solution
 
-Include code implemention and solution of "Introduction to Algorithms" (CLRS) 3rd edition
+Please go to the new repo to check out the active updates for codes implementation and solution
 
-## Exercise and Problem Solutions
+**https://github.com/frc123/CLRS**
 
-https://github.com/frc123/CLRS-solution
-
-This repo includes solutions for non-coding questions also.
-(LaTeX and handwriting)
-(The handwriting part will be updated to LaTeX)
-
-## Enviroment
-
-Ubuntu 20.04.1 LTS
-
-2021/9/23: start to use "clang++-10" and "-std=c++20" 
-
-## Completed Part
-
-Chapter 2 - 14
-
-Chapter 15 is updating
-
-## Plan
-
-Chapter 1 - 18
-
-Chapter 21 - 25
-
-## Contact
-
-Email: i@frc6.com
+This is the active repo for code implementation and solution.
+(include C++ codes and LaTeX solution)
 
 ## Bibliography
 
