@@ -2,7 +2,7 @@
 
 Please go to the new repo to check out the active updates for codes implementation and solution
 
-**https://github.com/frc123/CLRS**
+**https://github.com/yirong-c/CLRS**
 
 This is the active repo for code implementation and solution.
 (include C++ codes and LaTeX solution)
